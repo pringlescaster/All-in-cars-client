@@ -11,6 +11,14 @@ module.exports = {
         background: "var(--background)",
         foreground: "var(--foreground)",
       },
+      fontFamily: {
+        lato: ['Lato', 'sans-serif'],
+        exo: ['Exo', 'sans-serif'],
+        merriw: ['Merriweather', 'serif'],
+        merriwSans: ['Merriweather Sans', 'sans-serif'],
+        openSans: ['Open Sans', 'sans-serif'],
+        montserrat: ['Montserrat', 'sans-serif'],
+      }
     },
   },
   plugins: [],
