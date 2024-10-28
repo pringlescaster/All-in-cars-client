@@ -18,6 +18,7 @@ module.exports = {
         merriwSans: ['Merriweather Sans', 'sans-serif'],
         openSans: ['Open Sans', 'sans-serif'],
         montserrat: ['Montserrat', 'sans-serif'],
+        russo: ['"Russo One"', 'sans-serif'],
       }
     },
   },

@@ -48,7 +48,7 @@ function hero() {
                   {car.name}
                 </h1>
               </div>
-              <button className="bg-[#FCA311] text-black text-sm font-semibold font-openSans rounded-[10px] px-[26px] py-[12px]">
+              <button className="bg-[#FCA311] text-black text-sm font-bold font-openSans rounded-[10px] px-[26px] py-[12px]">
                 Explore Car
               </button>
             </div>
