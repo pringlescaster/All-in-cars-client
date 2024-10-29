@@ -4,7 +4,7 @@ import Hero from "../homepage/component/hero"
 import ThirdSection from './component/thirdSection'
 import ForthSection from './component/forthSection'
 import FifthSection from './component/fifthSection'
-
+import SixthSection from './component/sixthSection'
 function page() {
   return (
     <div>
@@ -13,6 +13,7 @@ function page() {
       <ThirdSection />
       <ForthSection />
       <FifthSection />
+      <SixthSection />
     </div>
   )
 }

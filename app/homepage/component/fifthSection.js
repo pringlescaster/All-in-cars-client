@@ -28,20 +28,15 @@ function fifthSection() {
         "Your satisfaction is our priority. Our team offers personalized support for a seamless experience.",
     },
 
-    {
-      Image: pricing,
-      title: "Competitive Pricing",
-      paragraph:
-        "We believe quality shouldn't be expensive. That's why we offer competitive pricing, ensuring you get the best deals without compromising on quality.",
-    },
+  
   ];
 
   return (
-    <div className="px-4 py-[60px] justify-center hidden md:flex flex-col gap-y-[40px] bg-[#030508]">
+    <div className="px-4 py-[60px] justify-center hidden lg:flex  flex-col gap-y-[40px] bg-[#030508]">
       <h1 className="font-normal text-white text-center text-lg font-russo md:text-2xl">
         Why Choose Us
       </h1>
-      <div className="flex flex-row items-start gap-x-[52px] justify-center">
+      <div className="flex items-start gap-x-[52px] md:px-4 lg:px-32 justify-center">
       {services.map(function (service, index) {
         return (
           <div className="flex flex-col">
