@@ -37,7 +37,7 @@ useEffect(() => {
         <div className="flex flex-col gap-y-[32px]">
             <div className="px-0 md:px-8 lg:px-16 flex flex-col gap-y-[8px]">
             <h1 className="font-normal text-white text-center text-lg font-russo md:text-2xl">{event.title}</h1>
-            <p className="font-montserrat text-sm font-light text-center">{event.description}</p>
+            <p className="font-montserrat text-sm md:text-base font-medium text-center">{event.description}</p>
             </div>
             
             <div className="flex px-0 justify-center gap-x-[16px]">

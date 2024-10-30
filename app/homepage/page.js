@@ -5,6 +5,7 @@ import ThirdSection from './component/thirdSection'
 import ForthSection from './component/forthSection'
 import FifthSection from './component/fifthSection'
 import SixthSection from './component/sixthSection'
+import Footer from './component/footer'
 function page() {
   return (
     <div>
@@ -14,6 +15,7 @@ function page() {
       <ForthSection />
       <FifthSection />
       <SixthSection />
+      <Footer />
     </div>
   )
 }

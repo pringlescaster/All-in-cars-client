@@ -27,7 +27,7 @@ export default function Home() {
         {/* Top bar with logo and navigation */}
         <div className="flex justify-between items-center w-full">
           <Image src={logo} alt="Logo" />
-          <ul className="hidden font-lato font-medium text-base md:flex justify-between gap-x-12">
+          <ul className="hidden font-lato font-medium text-white/80 text-base md:flex justify-between gap-x-12">
             <li>Home</li>
             <li>My Garage</li>
             <li>About</li>
@@ -35,9 +35,9 @@ export default function Home() {
           </ul>
 
           <div className="flex justify-start gap-x-[16px] md:gap-x-[24px] items-center">
-            <Image src={profile} alt="Profile" />
+            <button className="border-white/50 border-[0.5px] rounded-md text-sm font-openSans px-[24px] py-[6px] text-white/80 hover:text-white hover:border-white/80">Sign in</button>
             <Image src={search} alt="Search" onClick={toggleSearchAccordion} /> {/* Click to toggle accordion */}
-            <Image src={favourite} alt="Favourite" />
+            
             <div className="block md:hidden" onClick={handleClick}>
               {nav ? <Image src={cancel} /> : <Image width={22} src={hamburger} alt="cancel" />}
             </div>
