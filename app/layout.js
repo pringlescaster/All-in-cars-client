@@ -32,7 +32,7 @@ const Layout = ({ children }) => {
   };
 
   // Define routes where navbar should not appear
-  const excludeNavbarRoutes = ['j']; // Example routes
+  const excludeNavbarRoutes = ['']; // Example routes
 
   // Only render navbar if current route is not in excludeNavbarRoutes
   const showNavbar = !excludeNavbarRoutes.includes(pathname);
