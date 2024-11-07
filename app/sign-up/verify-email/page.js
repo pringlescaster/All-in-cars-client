@@ -2,13 +2,30 @@
 
 import React, { useState } from "react";
 import Image from "next/image";
-import LogIn from "../../../../public/LogIn.svg";
+import LogIn from "../../../public/LogIn.svg";
+import { useAuthStore } from "@/app/store/authStore";
+import toast from "react-hot-toast";
+import { useRouter } from "next/navigation";
 
 function Page() {
-  const [code, setCode] = useState(new Array(6).fill("")); // 6 slots expecting values
+  const [code, setCode] = useState(new Array(6).fill(""));
+  const { error, isLoading, verifyEmail } = useAuthStore();
+  const router = useRouter();
+
+  const handleSubmit = async (e) => {
+    e.preventDefault();
+    const verificationCode = code.join("");
+    try {
+      await verifyEmail(verificationCode);
+      router.push("/");
+      toast.success("Email verified successfully");
+    } catch (error) {
+      console.log(error);
+      toast.error("Failed to verify email");
+    }
+  };
 
   const handleChange = (element, index) => {
-    // Check if the input is a number; if not, do nothing
     if (isNaN(element.value)) return;
 
     setCode([...code.map((d, idx) => (idx === index ? element.value : d))]);
@@ -20,14 +37,12 @@ function Page() {
   };
 
   const handlePaste = (e) => {
-    // Prevent the default paste behavior
     e.preventDefault();
-    const pasteData = e.clipboardData.getData("text").slice(0, 6); // Get only the first 6 characters
+    const pasteData = e.clipboardData.getData("text").slice(0, 6);
 
-    // Update the code array with the pasted data
     setCode([...pasteData.split(""), ...new Array(6 - pasteData.length).fill("")]);
 
-    // Automatically focus the next empty input
+    // Auto-focus the next input field if available
     const inputs = document.querySelectorAll("input");
     inputs[pasteData.length]?.focus();
   };
@@ -42,7 +57,7 @@ function Page() {
           </p>
         </div>
 
-        <form className="grid mb-0 lg:mb-60 gap-y-[24px]">
+        <form onSubmit={handleSubmit} className="grid mb-0 lg:mb-60 gap-y-[24px]">
           <div className="flex justify-center items-center gap-2">
             {code.map((data, index) => (
               <input
@@ -58,8 +73,12 @@ function Page() {
             ))}
           </div>
 
-          <button className="bg-[#FCA311] text-[#151515] py-[10px] rounded-[10px] font-openSans font-semibold w-full md:w-[300px] lg:w-[350px]">
-            Continue
+          <button
+            type="submit"
+            disabled={isLoading}
+            className="bg-[#FCA311] text-[#151515] py-[10px] rounded-[10px] font-openSans font-semibold w-full md:w-[300px] lg:w-[350px]"
+          >
+            {isLoading ? "Verifying..." : "Verify Email"}
           </button>
         </form>
       </div>

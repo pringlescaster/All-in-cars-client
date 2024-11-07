@@ -5,6 +5,7 @@ import ForthSection from './Component/homeComponent/forthSection'
 import FifthSection from './Component/homeComponent/fifthSection'
 import SixthSection from './Component/homeComponent/sixthSection'
 import Footer from "./Component/footer";
+import { Toaster } from "react-hot-toast";
 
 export default function Home() {
   return (
@@ -15,6 +16,7 @@ export default function Home() {
       <FifthSection />
       <SixthSection />
       <Footer />
+      <Toaster />
     </>
   );
 }

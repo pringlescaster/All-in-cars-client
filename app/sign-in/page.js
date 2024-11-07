@@ -6,8 +6,11 @@ import Stroke from "../../public/stroke.svg";
 import emailIcon from "../../public/emailIcon.svg";
 import passwordIcon from "../../public/passwordIconn.svg";
 import Link from "next/link";
+import { Loader } from "lucide-react";
 
 function page() {
+
+
   return (
     <div className="flex flex-col lg:flex-row md:justify-center bg-[#030508] h-screen lg:h-full">
     <div className="grid px-4 py-8 justify-center items-center lg:items-start gap-y-[60px] lg:gap-y-[0px] lg:w-1/2">
@@ -60,10 +63,11 @@ function page() {
             Log In
           </button>
         </form>
+        <Link href='/sign-up'>
         <div className="text-sm flex gap-x-[4px] items-center justify-center text-center">
-          <h1 className="text-white/80">Don’t have an account?</h1>
+<h1 className="text-white/80">Don’t have an account?</h1>
           <button className="text-[#FCA311]">Create an Account</button>
-        </div>
+        </div></Link>
       </div>
     </div>
     {/* Adjust the styles for the image on large screens */}
