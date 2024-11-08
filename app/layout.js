@@ -5,6 +5,7 @@ import { useState } from "react";
 import Image from "next/image";
 import Link from "next/link";
 import { usePathname } from "next/navigation"; // Import usePathname for active route
+import React from "react";
 
 const geistSans = localFont({
   src: "./fonts/GeistVF.woff",
@@ -32,7 +33,7 @@ const Layout = ({ children }) => {
   };
 
   // Define routes where navbar should not appear
-  const excludeNavbarRoutes = ['']; // Example routes
+  const excludeNavbarRoutes = ['reset-password']; // Exclude the reset-password route
 
   // Only render navbar if current route is not in excludeNavbarRoutes
   const showNavbar = !excludeNavbarRoutes.includes(pathname);
@@ -134,5 +135,12 @@ const Layout = ({ children }) => {
     </html>
   );
 };
+
+// ResetPasswordLayout component to be used only for reset-password page
+export function ResetPasswordLayout({ children, params }) {
+  const { token } = params; // Capture the token
+
+  return React.cloneElement(children, { token });
+}
 
 export default Layout;

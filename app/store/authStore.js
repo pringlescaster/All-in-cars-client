@@ -10,6 +10,7 @@ export const useAuthStore = create((set) => ({
   error: null,
   isLoading: false,
   isCheckingAuth: true,
+  message: null,
 
   signup: async (email, password, name) => {
     set({ isLoading: true, error: null });
@@ -79,6 +80,36 @@ login: async (email, password) => {
     set({ error: error.response?.data?.message || "Error logging in", isLoading: false});
     throw error;
   }
+},
+
+forgotPassword: async (email) => {
+  set({ isLoading: true, error: null, message: null});
+  try {
+    const response = await axios.post(`${process.env.NEXT_PUBLIC_SERVER_URI_AUTH}/forgot-password`, { email });
+    set({ message: response.data.message, isLoading: false });
+  } catch (error) {
+    set({ isLoading: false,
+      error: error.response?.data?.message || "Error sending password reset email",
+    });
+    throw error;
+  }
+},
+
+resetPassword: async (token, password) => {
+set({
+  isLoading: true,
+  error: null,
+  message: null,
+});
+try {
+  const response = await axios.post(`${process.env.NEXT_PUBLIC_SERVER_URI_AUTH}/reset-password/${token}`, { password });
+  set({ message: response.data.message, isLoading: false });
+} catch (error) {
+  set({isLoading: false,
+    error: error.response.data.message || "Error resetting password",
+   });
+   throw error;
+}
 }
 
 }));
