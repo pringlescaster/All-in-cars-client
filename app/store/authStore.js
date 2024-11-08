@@ -49,7 +49,38 @@ export const useAuthStore = create((set) => ({
         set({ error: error.response?.data?.message || "Error verifying email", isLoading: false})
     throw error;
     }
+  },
+
+  //check if user is authenticated
+
+checkAuth: async () => {
+  set({ isCheckingAuth: true, error: null});
+  try {
+    const response = await axios.get(`${process.env.NEXT_PUBLIC_SERVER_URI_AUTH}/check-auth`);
+    set({ user: response.data.user, isAuthenticated: true, isCheckingAuth: false})
+    console.log('User:', response.data.user);
+  } catch (error) {
+    set({ error: null, isCheckingAuth: false, isAuthenticated: false })
   }
+},
+
+login: async (email, password) => {
+  set({ isLoading: true, error: null });
+  try {
+    const response = await axios.post(`${process.env.NEXT_PUBLIC_SERVER_URI_AUTH}/login`, { email, password});
+    set({
+      isAuthenticated: true,
+      user: response.data.user,
+      error: null,
+      isLoading: false,
+    })
+
+  } catch (error) {
+    set({ error: error.response?.data?.message || "Error logging in", isLoading: false});
+    throw error;
+  }
+}
+
 }));
 
 

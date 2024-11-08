@@ -1,4 +1,6 @@
-import React from "react";
+"use client"
+
+import React, { useState } from "react";
 import Image from "next/image";
 import googleIcon from "../../public/googleIcon.svg";
 import LogIn from "../../public/LogIn.svg";
@@ -6,14 +8,32 @@ import Stroke from "../../public/stroke.svg";
 import emailIcon from "../../public/emailIcon.svg";
 import passwordIcon from "../../public/passwordIconn.svg";
 import Link from "next/link";
+import { useRouter } from "next/navigation";
 import { Loader } from "lucide-react";
+import { useAuthStore } from "../store/authStore";
 
 function page() {
+  const [ email, setEmail ] = useState("");
+  const [ password, setPassword ] = useState("");
+  const router = useRouter();
+
+  const { login, error, isLoading } = useAuthStore()
+
+  const handleLogin = async (e) => {
+    e.preventDefault();
+
+    try {
+      await login ( email, password)
+      router.push("/")
+    } catch (error) {
+      console.error(error);
+    }
+  }
 
 
   return (
     <div className="flex flex-col lg:flex-row md:justify-center bg-[#030508] h-screen lg:h-full">
-    <div className="grid px-4 py-8 justify-center items-center lg:items-start gap-y-[60px] lg:gap-y-[0px] lg:w-1/2">
+    <div className="grid px-4 py-8 justify-center items-center lg:items-start gap-y-[30px] lg:gap-y-[0px] lg:w-1/2">
       <div className="flex flex-col gap-y-[8px]">
         <h1 className="font-russo text-lg text-left">
           Log in to your Account
@@ -22,6 +42,7 @@ function page() {
           Welcome back! Select method to log in
         </p>
       </div>
+      {error && <p className="text-red-500 font-medium mb-4 lg:mb-2 text-center">{error}</p>}
       <div className="grid gap-y-[24px] mt-0 lg:mb-8">
         <div className="flex justify-center text-base gap-x-[16px] border-white/50 border-[1px] px-[14px] py-[10px] rounded-[10px]">
           <Image src={googleIcon} alt="Google Icon" />
@@ -36,13 +57,15 @@ function page() {
           </h1>
           <Image src={Stroke} alt="Stroke Divider" />
         </div>
-        <form className="grid gap-y-[16px]">
+        <form onSubmit={handleLogin} className="grid gap-y-[16px]">
         <div className="flex gap-x-[8px] bg-[#2B2B2B]/30 border-white/60 border-[1px] px-[14px] py-[10px] rounded-[10px] w-full md:w-[300px] lg:w-[350px]">
               <Image src={emailIcon} alt="Email Icon" />
               <input
                 className="bg-transparent outline-none placeholder:font-montserrat placeholder:text-[14px] text-white w-full"
                 type="email"
                 placeholder="Email"
+                value={email}
+                onChange={(e) => setEmail(e.target.value)}
               />
             </div>
           <div className="grid gap-y-[8px]">
@@ -52,6 +75,8 @@ function page() {
                 className="bg-transparent outline-none placeholder:font-montserrat placeholder:text-[14px] text-white w-full"
                 type="password"
                 placeholder="Password"
+                value={password}
+                onChange={(e) => setPassword(e.target.value)}
               />
             </div>
            <Link className="text-right" href="/sign-in/forgot-password">
@@ -59,8 +84,9 @@ function page() {
               Forgot Password
             </button></Link> 
           </div>
-          <button className="bg-[#FCA311] mt-4 text-[#151515] py-[10px] rounded-[10px] font-openSans font-semibold">
-            Log In
+          <button type="submit" disabled={isLoading} 
+            className="bg-[#FCA311] mt-4 text-[#151515] py-[10px] rounded-[10px] font-openSans font-semibold">
+           {isLoading ? <Loader className="animate-spin mx-auto" size={24} />: "Log In" }
           </button>
         </form>
         <Link href='/sign-up'>
