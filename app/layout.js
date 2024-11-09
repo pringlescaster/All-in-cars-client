@@ -6,6 +6,10 @@ import Image from "next/image";
 import Link from "next/link";
 import { usePathname } from "next/navigation"; // Import usePathname for active route
 import React from "react";
+import { useAuthStore } from "./store/authStore";
+import Avatar from "./Component/avatar";
+import { useAuth } from "./hooks/useAuth";
+import StatusModal from "./Component/statusModal";
 
 const geistSans = localFont({
   src: "./fonts/GeistVF.woff",
@@ -21,6 +25,8 @@ const geistMono = localFont({
 const Layout = ({ children }) => {
   const [nav, setNav] = useState(false);
   const pathname = usePathname(); // To get the current path
+  const { user, isAuthenticated } = useAuthStore()
+  const [isModalOpen, setIsModalOpen] = useState(false)
 
   const handleClick = () => {
     setNav(!nav);
@@ -37,6 +43,10 @@ const Layout = ({ children }) => {
 
   // Only render navbar if current route is not in excludeNavbarRoutes
   const showNavbar = !excludeNavbarRoutes.includes(pathname);
+
+  const toggleModal = ()=>{
+    setIsModalOpen(!isModalOpen)
+  }
 
   return (
     <html lang="en">
@@ -69,14 +79,23 @@ const Layout = ({ children }) => {
                 </li>
               </ul>
 
+              
               <div className="flex justify-start gap-x-[16px] md:gap-x-[24px] items-center">
-                <Link href="/sign-in">
-                  <div className="border-white/50 border-[0.5px] rounded-md text-sm font-openSans px-[24px] py-[6px] text-white/80 hover:text-white hover:border-white/80">
-                    Sign in
-                  </div>
-                </Link>
+               
 
                 <Image src="/search.svg" alt="Search" width={20} height={20} />
+                {isAuthenticated ? (
+                  <div onClick={toggleModal}>
+                  <Avatar name={user.name} size={8} />
+                  </div> // Display user avatar when logged in
+                ) : (
+                  <Link href="/sign-in">
+                    <div className="border-white/50 border-[0.5px] rounded-md text-sm font-openSans px-[24px] py-[6px] text-white/80 hover:text-white hover:border-white/80">
+                      Sign in
+                    </div>
+                  </Link>
+                )}
+
                 <div className="block md:hidden" onClick={handleClick}>
                   {nav ? (
                     <Image src="/cancel.svg" alt="Cancel" width={22} height={22} />
@@ -128,6 +147,22 @@ const Layout = ({ children }) => {
             </div>
           </div>
         )}
+
+  
+  {isModalOpen && (
+          
+            <div className="absolute right-2 mt-2 w-[90%] md:w-[50%] lg:w-[30%] bg-[#050910] rounded-lg shadow-md">
+              <StatusModal /> {/* Render your statusModal component */}
+              <button
+                onClick={toggleModal}
+                className="absolute top-2 right-2 text-white/80 hover:text-white"
+              >
+                &times; {/* Close button */}
+              </button>
+            </div>
+          
+        )}
+
 
         {/* Main content */}
         <main>{children}</main>
