@@ -63,8 +63,8 @@ const Layout = ({ children }) => {
                   </Link>
                 </li>
                 <li>
-                  <Link href="/my-garage" className={getLinkClassName("/my-garage")}>
-                    My Garage
+                  <Link href="/shop" className={getLinkClassName("shop")}>
+                    Shop
                   </Link>
                 </li>
                 <li>
@@ -129,8 +129,8 @@ const Layout = ({ children }) => {
                   </Link>
                 </li>
                 <li>
-                  <Link href="/my-garage" className={getLinkClassName("/my-garage")}>
-                    My Garage
+                  <Link href="/my-garage" className={getLinkClassName("/shop")}>
+                    Shop
                   </Link>
                 </li>
                 <li>
