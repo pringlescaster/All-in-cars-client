@@ -4,6 +4,7 @@ import logout from "../../public/logout.svg";
 import Avatar from "./avatar";
 import Image from "next/image";
 import { useAuthStore } from "../store/authStore";
+import Link from "next/link";
 
 
 function statusModal() {
@@ -21,9 +22,9 @@ const { user} = useAuthStore()
       </div>
 
       <div className="flex flex-col gap-y-2 mt-6">
-      <div className="flex items-center gap-x-2 cursor-pointer"><Image width={16} src={Favourite} alt="favourite"/>
-      <h1 className="text-base text-white font-openSans ">Favourite</h1></div>
-
+      <Link href="/favorite"><div className="flex items-center gap-x-2 cursor-pointer"><Image width={16} src={Favourite} alt="favourite"/>
+      <h1 className="text-base text-white font-openSans ">Favorite</h1></div>
+      </Link>
       <div className="flex items-center gap-x-2 cursor-pointer"><Image width={14} src={logout} alt="favourite"/>
       <h1 className="text-base text-white font-openSans ">Log Out</h1></div>
       </div>
