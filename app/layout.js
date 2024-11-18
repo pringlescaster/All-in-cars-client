@@ -35,7 +35,7 @@ const Layout = ({ children }) => {
   const getLinkClassName = (path) => {
     return pathname === path
       ? "text-[#FCA311]" // Active link color
-      : "text-white/80"; // Default link color
+      : "text-white/40"; // Default link color
   };
 
   // Define routes where navbar should not appear
@@ -63,7 +63,7 @@ const Layout = ({ children }) => {
                   </Link>
                 </li>
                 <li>
-                  <Link href="/shop" className={getLinkClassName("shop")}>
+                  <Link href="/shop" className={getLinkClassName("/shop")}>
                     Shop
                   </Link>
                 </li>
@@ -129,7 +129,7 @@ const Layout = ({ children }) => {
                   </Link>
                 </li>
                 <li>
-                  <Link href="/my-garage" className={getLinkClassName("/shop")}>
+                  <Link href="/shop" className={getLinkClassName("/shop")}>
                     Shop
                   </Link>
                 </li>

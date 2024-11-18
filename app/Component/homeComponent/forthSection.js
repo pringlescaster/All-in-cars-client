@@ -5,6 +5,7 @@ import axios from "axios";
 import Image from "next/image";
 import speedIcon from "../../../public/speedIcon.svg";
 import engineIcon from "../../../public/engineIcon.svg";
+import favorite from "../../../public/favorite.svg"
 
 
 function forthSection() {
@@ -42,11 +43,24 @@ function forthSection() {
         </h1>
         </div>
         
-        <div className="grid grid-cols-2 gap-y-[12px] gap-x-[12px] md:grid-cols-3 lg:flex md:justify-center">
+        <div className="grid grid-cols-2 gap-y-[12px] gap-x-[12px] md:grid-cols-3 lg:flex md:justify-center md:gap-x-[16px] py-[24px] justify-start px-4 md:py-[40px]">
             {newCars && 
             newCars.map((car) => (
-                <div key={car.id} className="flex bg-white/15 flex-col rounded-xl">
-                  <Image src={car.image} alt="car images" width="256" height="170" className="rounded-t-xl" />
+                <div key={car.id} className="flex bg-white/15 flex-col rounded-xl w-full lg:w-[22%]">
+                  <div className="relative">
+                <Image
+                  src={car.image}
+                  alt="car images"
+                  width="256"
+                  height="170"
+                  className="rounded-t-xl w-full object-cover"
+                />
+                <Image
+                  src={favorite}
+                  alt="favorite icon"
+                  className="absolute top-2 right-2 w-8 h-8 z-10" // z-index added
+                />
+              </div>
                   <div className=" px-2 py-2 grid gap-y-[8px] ">
                   <h1 className="text-white text-[14px] md:text-[16px] font-montserrat text-left font-medium">{car.name}</h1>
                   <div className="flex flex-col md:flex-row justify-center md:justify-start md:items-center md:gap-x-[33px] gap-y-[12px]">
