@@ -9,7 +9,7 @@ import speedIcon from "../../public/speedIcon.svg";
 import Footer from "../Component/footer";
 import BookingModal from "../Component/bookingModal";
 
-function Page() {
+function Page({carId}) {
   const { car_id } = useParams();
   const [carDetails, setCarDetails] = useState(null);
   const [loading, setLoading] = useState(true);
@@ -128,11 +128,15 @@ function Page() {
       {/* Show the Backdrop Blur when modal is open */}
       {showModal && (
   <div className="fixed px-4 inset-0 bg-black bg-opacity-50 backdrop-blur-sm flex justify-center items-center z-50">
-    <div className="rounded-lg shadow-lg max-w-lg w-full">  {/* Adjusted width */}
-      <BookingModal onClose = {() => setShowModal(false)} />
+    <div className="rounded-lg shadow-lg max-w-lg w-full">
+      <BookingModal
+        carId={car_id} // Pass the correct carId here
+        onClose={() => setShowModal(false)}
+      />
     </div>
   </div>
 )}
+
 
     
 
