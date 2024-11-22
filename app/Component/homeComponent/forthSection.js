@@ -81,7 +81,7 @@ function ForthSection() {
         <div className="grid grid-cols-2 gap-y-[12px] gap-x-[12px] md:grid-cols-3 lg:flex md:justify-center md:gap-x-[16px] py-[24px] justify-start px-4 md:py-[40px]">
           {newCars &&
             newCars.map((car) => (
-              <div key={car._id} className="flex bg-white/15 flex-col rounded-xl w-full lg:w-[22%]"
+              <div key={car._id} className="flex bg-white/15 flex-col rounded-xl justify-start lg:w-[22%]"
               onClick={() => handleCarClick(car._id)} >
                 <div className="relative">
                   <Image

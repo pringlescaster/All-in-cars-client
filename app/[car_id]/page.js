@@ -32,20 +32,22 @@ function page() {
   }, [car_id]);
 
   return (
-    <div>
+    <div className="">
   {carDetails && (
-    <div
-      className="relative 
-      px-4 md:px-6 py-8 h-screen"
+    <div>
+    <div 
+      className="relative hidden md:screen 
+      px-4 md:px-8 py-16  items-start md:flex justify-end"
       style={{
         backgroundSize: "cover",
         backgroundPosition: "center",
         backgroundRepeat: "no-repeat",
+        
       }}
     >
       {/* Background Overlay */}
       <div
-        className="absolute inset-0 bg-black opacity-30"
+        className="absolute inset-0 bg-black opacity-50"
         style={{
           backgroundImage: `url(${carDetails.image})`,
           backgroundSize: "cover",
@@ -55,72 +57,137 @@ function page() {
       />
 
       {/* Content Layer */}
-      <div className="relative z-10 text-white">
-        <div className="flex items-center justify-between gap-y-[16px] md:gap-y-[32px]">
-          <div className="flex flex-col gap-y-[8px] md:gap-y-[16px]">
-            <h1 className="text-white font-exo text-base md:text-[32px] font-medium text-left">
-              {carDetails.price}
-            </h1>
-            <div className="flex flex-col gap-y-4 mt-6">
-            <h1 className="text-white md:text-[50px] text-2xl font-regular text-left font-merriwSans">
-              {carDetails.name}
-            </h1>
+      <div className="relative grid items-end gap-y-3 z-10 text-white">
+        
+  <div className="grid gap-y-2 justify-start px-6 py-8 rounded-[20px]" style={{
+    backdropFilter: "blur(3px)", // Adds blur for glassmorphism
+    backgroundColor: "rgba(255, 255, 255, 0.1)", // Translucent background
+    border: "1px solid rgba(255, 255, 255, 0.3)", // Frosted border
+    boxShadow: "0 4px 30px rgba(0, 0, 0, 0.1)", // Subtle shadow for depth
+  }}>
+    <h1 className="font-montserrat font-semibold text-lg">{carDetails.name}</h1>
+    <h1 className="font-openSans text-lg">{carDetails.price}</h1>
+    <button className="font-openSans font-semibold text-base rounded-[8px] px-[24px] py-[10px] text-black bg-[#FCA311]">
+          Book Appointment
+        </button>
 
-            <h1 className="text-white font-montserrat font-medium w-[60%]">
-              {carDetails.description}
-            </h1>
-            <button className="bg-[#FCA311] w-[20%] text-black text-sm font-bold font-openSans rounded-[10px] px-[26px] py-[12px]">
-                Book a Visit
-              </button>
-            </div>
-           
-          </div>
+    </div>        
 
-          <div
-            className="md:flex w-[70%] hidden flex-col gap-y-[48px] px-8 py-12 rounded-[20px] bg-white/10"
-          
-          >
-            <div className="flex flex-col gap-y-[12px]">
-              <Image src={engineIcon} alt="engineIcon" />
-              <div className="gap-y-[4px]">
-                <h1 className="text-white text-base font-normal font-openSans">
-                  Engine Type
-                </h1>
-                <h1 className="text-white text-lg font-normal">
-                  {carDetails.engineType}
-                </h1>
-              </div>
-            </div>
+<div
+  className=" hidden md:grid gap-y-4 justify-start px-6 py-8 rounded-[20px]"
+  style={{
+    backdropFilter: "blur(3px)", // Adds blur for glassmorphism
+    backgroundColor: "rgba(255, 255, 255, 0.1)", // Translucent background
+    border: "1px solid rgba(255, 255, 255, 0.3)", // Frosted border
+    boxShadow: "0 4px 30px rgba(0, 0, 0, 0.1)", // Subtle shadow for depth
+  }}
+>
+  <h1 className="text-white font-semibold text-left font-merriwSans text-lg">Overview</h1>
+  <div className="flex justify-evenly gap-x-12">
+  <div className="flex flex-col gap-y-[12px]">
+    <Image src={engineIcon} className="w-[18px]" alt="engineIcon" />
+    <div className="gap-y-[4px]">
+      <h1 className="text-white text-sm font-light font-openSans">
+        Engine Type
+      </h1>
+      <h1 className="text-white text-base font-light">{carDetails.engineType}</h1>
+    </div>
+  </div>
 
-            <div className="flex flex-col gap-y-[12px]">
-              <Image src={speedIcon} alt="engineIcon" />
-              <div className="gap-y-[4px]">
-                <h1 className="text-white text-base font-normal font-openSans">
-                  Top Speed
-                </h1>
-                <h1 className="text-white text-lg font-normal">
-                  {carDetails.speed}
-                </h1>
-              </div>
-            </div>
+  <div className="flex flex-col gap-y-[12px]">
+    <Image src={speedIcon} className="w-[18px]" alt="engineIcon" />
+    <div className="gap-y-[4px]">
+      <h1 className="text-white text-sm font-light font-openSans">
+        Top Speed
+      </h1>
+      <h1 className="text-white text-base font-light">{carDetails.speed}</h1>
+    </div>
+  </div>
 
-            <div className="flex flex-col gap-y-[12px]">
-              <Image src={calendarIcon} alt="engineIcon" />
-              <div className="gap-y-[4px]">
-                <h1 className="text-white text-base font-normal font-openSans">
-                  Year
-                </h1>
-                <h1 className="text-white text-lg font-medium">
-                  {carDetails.year}
-                </h1>
-              </div>
-            </div>
-          </div>
-        </div>
+  <div className="flex flex-col gap-y-[12px]">
+    <Image src={calendarIcon} className="w-[18px]" alt="engineIcon" />
+    <div className="gap-y-[4px]">
+      <h1 className="text-white text-sm font-light font-openSans">Year</h1>
+      <h1 className="text-white text-base font-light">{carDetails.year}</h1>
+    </div>
+  </div>
+  </div>
+ 
+</div>
+
+
 
         
       </div>
+      <div className="flex md:hidden flex-col">
+          {/* Responsive Image */}
+          <div className="w-full h-auto max-h-[70vh] lg:max-h-[80vh] overflow-hidden">
+            <Image
+              className="rounded-md" // Optional: Add styling like rounded corners
+              src={carDetails.image}
+              alt="Car Image"
+              layout="intrinsic" // Maintains original aspect ratio
+              width={1600} // Original image width
+              height={900} // Original image height
+              objectFit="contain" // Ensures no cropping occurs
+              quality={80} // Adjust quality for optimization
+              priority // Loads image faster if it's above the fold
+            />
+          </div>
+
+          {/* Car Details */}
+          <div className="py-8 grid gap-y-[8px] px-3 md:px-8  bg-[#030508]">
+            <div className="grid md:flex gap-y-2 justify-between"><h1 className="font-montserrat font-semibold text-white text-[20px] md:text-[22px]">
+              {carDetails.name}
+            </h1>
+            <h1 className="font-openSans font-semibold text-[#FCA311]  text-[20px] md:text-[22px]">
+              {carDetails.price}
+            </h1></div>
+            <h1 className="font-montserrat text-white/80 text-[16px] md:text-[18px]">
+              {carDetails.description}
+            </h1>
+            <button className="font-openSans mt-6 font-semibold text-base rounded-[8px] px-[24px] py-[10px] text-black bg-[#FCA311]">
+          Book Appointment
+        </button>
+          </div>
+          
+        </div>
     </div>
+    <div className="flex md:hidden flex-col">
+          {/* Responsive Image */}
+          <div className="w-full h-auto max-h-[70vh] lg:max-h-[80vh] overflow-hidden">
+            <Image
+              className="rounded-md" // Optional: Add styling like rounded corners
+              src={carDetails.image}
+              alt="Car Image"
+              layout="intrinsic" // Maintains original aspect ratio
+              width={1600} // Original image width
+              height={900} // Original image height
+              objectFit="contain" // Ensures no cropping occurs
+              quality={80} // Adjust quality for optimization
+              priority // Loads image faster if it's above the fold
+            />
+          </div>
+
+          {/* Car Details */}
+          <div className="py-8 grid gap-y-[8px] px-3 md:px-8  bg-[#030508]">
+            <div className="grid md:flex gap-y-2 justify-between"><h1 className="font-montserrat font-semibold text-white text-[20px] md:text-[22px]">
+              {carDetails.name}
+            </h1>
+            <h1 className="font-openSans font-semibold text-[#FCA311]  text-[20px] md:text-[22px]">
+              {carDetails.price}
+            </h1></div>
+            <h1 className="font-montserrat text-white/80 text-[16px] md:text-[18px]">
+              {carDetails.description}
+            </h1>
+            <button className="font-openSans mt-6 font-semibold text-base rounded-[8px] px-[24px] py-[10px] text-black bg-[#FCA311]">
+          Book Appointment
+        </button>
+          </div>
+          
+        </div>
+    </div>
+
   )}
 </div>
 
