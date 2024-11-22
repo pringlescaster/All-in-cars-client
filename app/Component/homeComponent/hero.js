@@ -36,7 +36,7 @@ function Hero() {
           boxShadow: "0 4px 30px rgba(0, 0, 0, 0.1)", // Subtle shadow
         }}
       >
-        <p>
+        <p className="font-montserrat font-medium">
           Explore our top-quality vehicles and find your perfect match. At
           AllInCars, book a date, test drive your choice, and buy with
           confidence.
