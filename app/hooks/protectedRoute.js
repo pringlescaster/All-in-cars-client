@@ -1,22 +1,26 @@
-"use client"
+"use client";
 
-import React from "react";
+import React, { useEffect } from "react";
 import { useAuth } from "./useAuth";
 import { useRouter } from "next/navigation";
 
-
 export default function ProtectedRoute({ children }) {
-    const { isCheckingAuth, isAuthenticated } = useAuth();
-    const router = useRouter();
-  
-    if (isCheckingAuth) {
-      return <p>Loading...</p>;
-    }
-  
-    if (!isAuthenticated) {
+  const { isCheckingAuth, isAuthenticated } = useAuth();
+  const router = useRouter();
+
+  useEffect(() => {
+    if (!isCheckingAuth && !isAuthenticated) {
       router.push("/sign-in");
-      return null;
     }
-  
-    return children;
+  }, [isCheckingAuth, isAuthenticated, router]);
+
+  if (isCheckingAuth) {
+    return <p>Loading...</p>; // Show loading state while checking authentication
   }
+
+  if (!isAuthenticated) {
+    return null; // Prevent rendering content while redirecting
+  }
+
+  return <>{children}</>;
+}

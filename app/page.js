@@ -9,7 +9,7 @@ import { Toaster } from "react-hot-toast";
 
 export default function Home() {
   return (
-    <>
+    <div className="cursor-default">
       <Hero />
       <ThirdSection />
       <ForthSection />
@@ -17,6 +17,6 @@ export default function Home() {
       <SixthSection />
       <Footer />
       <Toaster />
-    </>
+    </div>
   );
 }

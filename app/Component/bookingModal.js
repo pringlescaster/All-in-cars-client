@@ -4,15 +4,18 @@ import close from "../../public/closee.svg";
 import Image from "next/image";
 import axios from "axios";
 
-function BookingModal({carId, onClose }) {
+function BookingModal({carId, onClose, onBookingSuccess }) {
+  const {isAuthenticated} = useAuthStore();
   const [date, setDate] = useState("");
   const [errorMessage, setErrorMessage] = useState("");
   const [successMessage, setSuccessMessage] = useState("");
   const [isLoading, setIsLoading] = useState(false);
 
+
   
   const handleDateChange = (e) => {
     setDate(e.target.value);
+    
   };
 
   const handleSubmit = async (e) => {
@@ -42,13 +45,14 @@ function BookingModal({carId, onClose }) {
       if (response.data.success) {
         setSuccessMessage("Booking Created Successfully!");
         setDate("");
+        onBookingSuccess();
         onClose();
       } else {
         setErrorMessage(response.data.message);
       }
     } catch (error) {
       setErrorMessage(
-        error.response?.data?.message || "An error occurred while creating the booking."
+      error.response?.data?.message || "An error occurred while creating the booking."
       );
     } finally {
       setIsLoading(false);
@@ -77,12 +81,12 @@ function BookingModal({carId, onClose }) {
 
       <form onSubmit={handleSubmit} className="grid gap-y-6">
         {errorMessage && (
-          <div className="text-red-500 text-sm font-medium">
+          <div className="text-red-500 text-sm md:text-base font-medium">
             {errorMessage}
           </div>
         )}
         {successMessage && (
-          <div className="text-green-500 text-sm font-medium">
+          <div className="text-green-500 text-sm md:text-base font-medium">
             {successMessage}
           </div>
         )}
@@ -102,7 +106,7 @@ function BookingModal({carId, onClose }) {
     isLoading ? "opacity-50 cursor-not-allowed" : ""
   }`}
 >
-  {isLoading ? "Booking..." : "Book Your Visit"}
+  {isLoading ? "Booking..." : "Confirm Booking"}
 </button>
 
         </div>

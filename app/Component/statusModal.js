@@ -5,11 +5,13 @@ import Avatar from "./avatar";
 import Image from "next/image";
 import { useAuthStore } from "../store/authStore";
 import Link from "next/link";
+import ProtectedRoute from "../hooks/protectedRoute";
 
 function statusModal() {
   const { user } = useAuthStore();
 
   return (
+    <ProtectedRoute>
     <div className="bg-white/10  px-6 py-4 border-white/10 rounded-lg border-[0.4px]">
       <div className="flex border-b[1.2px] gap-x-[8px] border-white/20 pb-2">
         <Avatar size={10} name={user.name} />
@@ -37,6 +39,7 @@ function statusModal() {
         </div>
       </div>
     </div>
+    </ProtectedRoute>
   );
 }
 

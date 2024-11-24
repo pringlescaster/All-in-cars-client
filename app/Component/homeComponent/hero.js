@@ -6,6 +6,7 @@ import Image from "next/image";
 import calendarIcon from "../../../public/calendarIcon.svg";
 import speedIcon from "../../../public/speedIcon.svg";
 import engineIcon from "../../../public/engineIcon.svg";
+import Link from "next/link";
 
 function Hero() {
   return (
@@ -18,13 +19,14 @@ function Hero() {
         backgroundRepeat: "no-repeat",
       }}
     >
-      <div className="pt-36 flex flex-col gap-y-[8px] justify-center items-center">
-        <h1 className="font-merriwSans font-semibold text-[30px] text-center">
+      <div className="pt-36 cursor-default flex flex-col gap-y-[8px] justify-center items-center">
+        <h1 className="
+        font-merriwSans font-semibold text-[30px] text-center">
           Discover your dream car with ease!
         </h1>
-        <button className="font-openSans font-semibold text-base rounded-[8px] px-[24px] py-[10px] text-black bg-[#FCA311]">
+        <Link href={'/shop'}><button className="font-openSans font-semibold text-base rounded-[8px] px-[24px] py-[10px] text-black bg-[#FCA311]">
           Explore Cars
-        </button>
+        </button></Link>
       </div>
 
       <div
