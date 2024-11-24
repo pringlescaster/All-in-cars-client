@@ -83,14 +83,14 @@ const Layout = ({ children }) => {
               <div className="flex justify-start gap-x-[16px] md:gap-x-[24px] items-center">
                
 
-                <Image src="/search.svg" alt="Search" width={20} height={20} />
+
                 {isAuthenticated ? (
-                  <div onClick={toggleModal}>
-                  <Avatar name={user.name} size={8} />
+                  <div className="cursor-pointer" onClick={toggleModal}>
+                  <Avatar  name={user.name} size={8} />
                   </div> // Display user avatar when logged in
                 ) : (
                   <Link href="/sign-in">
-                    <div className="border-white/50 border-[0.5px] rounded-md text-sm font-openSans px-[24px] py-[6px] text-white/80 hover:text-white hover:border-white/80">
+                    <div className="border-white/50 border-[0.5px] cursor-pointer rounded-md text-sm font-openSans px-[24px] py-[6px] text-white/80 hover:text-white hover:border-white/80">
                       Sign in
                     </div>
                   </Link>
@@ -151,7 +151,7 @@ const Layout = ({ children }) => {
   
   {isModalOpen && (
           
-            <div className="absolute right-2 mt-2 w-[90%] md:w-[50%] lg:w-[30%] bg-[#050910] rounded-lg shadow-md">
+            <div className="absolute right-2 mt-2 w-[90%] md:w-[50%] lg:w-[30%] bg-[#050910] rounded-lg shadow-md cursor-pointer">
               <StatusModal /> {/* Render your statusModal component */}
               <button
                 onClick={toggleModal}

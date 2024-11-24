@@ -12,6 +12,8 @@ export const useAuthStore = create((set) => ({
   isCheckingAuth: true,
   message: null,
 
+  logout: () => set({ user: null }),
+
   signup: async (email, password, name) => {
     set({ isLoading: true, error: null });
     try {
@@ -110,6 +112,25 @@ try {
    });
    throw error;
 }
+},
+
+logout: async () => {
+  set({ isLoading: true, error: null });
+  try {
+    await axios.post(`${process.env.NEXT_PUBLIC_SERVER_URI_AUTH}/logout`);
+    set({
+      user: null,
+      isAuthenticated: false,
+      error: null,
+      isLoading: false,
+    });
+  } catch (error) {
+    set({
+      error: error.response?.data?.message || "Error logging out",
+      isLoading: false,
+    });
+    throw error;
+  }
 }
 
 }));
