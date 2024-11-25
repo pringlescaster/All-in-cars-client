@@ -110,11 +110,11 @@ function ForthSection() {
                   <div className="flex flex-col md:flex-row justify-center md:justify-start md:items-center md:gap-x-[33px] gap-y-[12px]">
                     <div className="grid gap-y-[4px]">
                       <Image width={16} height={14} src={speedIcon} alt="image"/>
-                      <h1 className="font-openSans text-[12px] font-normal">{car.speed}</h1>
+                      <h1 className="font-openSans text-[12px] text-white font-normal">{car.speed}</h1>
                     </div>
                     <div className="md:grid hidden gap-y-[4px]">
                       <Image width={16} height={14} src={engineIcon} alt="iamge" />
-                      <h1 className="font-openSans text-[12px] font-normal">{car.engineType}</h1>
+                      <h1 className="font-openSans text-white text-[12px] font-normal">{car.engineType}</h1>
                     </div>
                   </div>
                   <h1 className="font-openSans font-medium text-[#FCA311] text-[16px]">{car.price}</h1>
