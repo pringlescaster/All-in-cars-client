@@ -6,7 +6,7 @@ import Image from "next/image";
 import speedIcon from "../../../public/speedIcon.svg";
 import engineIcon from "../../../public/engineIcon.svg";
 import favorite from "../../../public/favorite.svg";
-import selectedFavorite from "../../../public/selectedFavorite.svg";
+import selectFavorite from "../../../public/selectedFavorite.svg";
 import { useRouter } from "next/navigation";
 import { useAuthStore } from "@/app/store/authStore";
 
@@ -94,7 +94,7 @@ function ForthSection() {
                     
                   />
                  <Image
-  src={car.isFavorite ? selectedFavorite : favorite}
+  src={car.isFavorite ? selectFavorite : favorite}
   alt="favorite icon"
   className="absolute top-2 right-2 w-8 h-8 z-10 cursor-pointer"
   onClick={(event) => {
