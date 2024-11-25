@@ -25,7 +25,7 @@ function ForthSection() {
   useEffect(() => {
     const fetchNewArrival = async () => {
       try {
-        const response = await axios.get(`${process.env.NEXT_PUBLIC_SERVER_URI_AUTH}/cars`);
+        const response = await axios.get("https://all-in-cars-server.vercel.app/api/v1/cars");
         const newArrivals = response.data.filter(car => car.categories === "New Arrivals");
         setNewCars(newArrivals);
         setLoading(false);
@@ -56,10 +56,10 @@ function ForthSection() {
       const toggledCar = updatedCars.find((car) => car._id === carId);
       if (toggledCar.isFavorite) {
         // Add to favorites
-        await axios.post(`${process.env.NEXT_PUBLIC_SERVER_URI_AUTH}/favorites`, { carId });
+        await axios.post("https://all-in-cars-server.vercel.app/api/v1/favorites", { carId });
       } else {
         // Remove from favorites
-        await axios.delete(`${process.env.NEXT_PUBLIC_SERVER_URI_AUTH}/favorites/${carId}`);
+        await axios.delete(`https://all-in-cars-server.vercel.app/api/v1/favorites/${carId}`);
       }
     } catch (error) {
       console.error("Error toggling favorite:", error);
