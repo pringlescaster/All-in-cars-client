@@ -137,14 +137,14 @@ function Main() {
       </div>
 
       {/* Filtered Cars Display */}
-      <div className="grid grid-cols-2 gap-y-[12px] gap-x-[12px] md:grid-cols-3 lg:flex md:justify-center md:gap-x-[16px] py-[24px] justify-start px-4 md:py-[40px]">
+      <div className="grid grid-cols-2 text-white gap-y-[12px] gap-x-[12px] md:grid-cols-3 lg:flex md:justify-center md:gap-x-[16px] py-[24px] justify-start px-4 md:py-[40px]">
         {filterData.length > 0 ? (
           filterData.map((car) => (
             <div
               key={car._id}
               className="flex bg-white/15 flex-col rounded-xl w-full  lg:w-[22%]"
             >
-              <div className="relative">
+              <div className=" text-white relative">
                 <Image
                   src={car.image}
                   alt="car images"
@@ -172,7 +172,7 @@ function Main() {
                       src={speedIcon}
                       alt="speedIcon"
                     />
-                    <h1 className="font-openSans text-[12px] font-normal">
+                    <h1 className="font-openSans text-white text-[12px] font-normal">
                       {car.speed}
                     </h1>
                   </div>
@@ -183,7 +183,7 @@ function Main() {
                       src={engineIcon}
                       alt="engineIcon"
                     />
-                    <h1 className="font-openSans text-[12px] font-normal">
+                    <h1 className="font-openSans text-white text-[12px] font-normal">
                       {car.engineType}
                     </h1>
                   </div>
