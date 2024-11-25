@@ -6,7 +6,7 @@ import Image from "next/image";
 import speedIcon from "../../../public/speedIcon.svg";
 import engineIcon from "../../../public/engineIcon.svg";
 import favorite from "../../../public/favorite.svg";
-import selectFavorite from "../../../public/selectedFavorite.svg";
+import selectFavorite from "../../../public/selectedfavorite.svg";
 import { useRouter } from "next/navigation";
 import { useAuthStore } from "@/app/store/authStore";
 
