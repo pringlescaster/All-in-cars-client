@@ -56,7 +56,9 @@ function ForthSection() {
       const toggledCar = updatedCars.find((car) => car._id === carId);
       if (toggledCar.isFavorite) {
         // Add to favorites
-        await axios.post("https://all-in-cars-server.vercel.app/api/v1/favorites", { carId });
+        await axios.post("https://all-in-cars-server.vercel.app/api/v1/favorites", { carId } ,
+          {withCredentials: true}
+        );
       } else {
         // Remove from favorites
         await axios.delete(`https://all-in-cars-server.vercel.app/api/v1/favorites/${carId}`);
