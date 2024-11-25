@@ -91,6 +91,7 @@ function ForthSection() {
                     width="256"
                     height="170"
                     className="rounded-t-xl w-full object-cover"
+                    
                   />
                  <Image
   src={car.isFavorite ? selectedFavorite : favorite}
@@ -106,11 +107,11 @@ function ForthSection() {
                   <h1 className="text-white text-[14px] md:text-[16px] font-montserrat text-left font-medium">{car.name}</h1>
                   <div className="flex flex-col md:flex-row justify-center md:justify-start md:items-center md:gap-x-[33px] gap-y-[12px]">
                     <div className="grid gap-y-[4px]">
-                      <Image width={16} height={14} src={speedIcon} />
+                      <Image width={16} height={14} src={speedIcon} alt="image"/>
                       <h1 className="font-openSans text-[12px] font-normal">{car.speed}</h1>
                     </div>
                     <div className="md:grid hidden gap-y-[4px]">
-                      <Image width={16} height={14} src={engineIcon} />
+                      <Image width={16} height={14} src={engineIcon} alt="iamge" />
                       <h1 className="font-openSans text-[12px] font-normal">{car.engineType}</h1>
                     </div>
                   </div>

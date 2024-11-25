@@ -1,3 +1,5 @@
+"use client"
+
 import React from "react";
 import Image from "next/image";
 import Img from "../../../public/imgg.svg"
@@ -9,7 +11,7 @@ function fifthSection() {
         <h1 className="font-normal text-white text-center text-lg font-russo md:text-2xl">
           Our Story
         </h1>
-        <p className="font-montserrat text-sm md:text-base font-light text-center">
+        <p className="font-montserrat text-sm md:text-lg font-medium text-center">
           Welcome to "All In Cars" – your ultimate destination for automotive
           excellence. Our journey began with a group of car enthusiasts
           dedicated to creating a premier online hub for car lovers. From

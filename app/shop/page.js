@@ -6,7 +6,7 @@ import Search from './component/search'
 function page() {
   return (
     <div>
-      <Search />
+      
       <Main />
       <Footer />
       
