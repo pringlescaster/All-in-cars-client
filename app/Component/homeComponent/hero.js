@@ -21,7 +21,7 @@ function Hero() {
     >
       <div className="pt-36 cursor-default flex flex-col gap-y-[8px] justify-center items-center">
         <h1 className="
-        font-merriwSans font-semibold text-[30px] text-center">
+        font-merriwSans font-semibold text-[30px] text-white text-center">
           Discover your dream car with ease!
         </h1>
         <Link href={'/shop'}><button className="font-openSans font-semibold text-base rounded-[8px] px-[24px] py-[10px] text-black bg-[#FCA311]">

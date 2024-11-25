@@ -63,7 +63,7 @@ function FifthSection() {
       <h1 className="font-normal text-white text-center text-lg font-russo md:text-2xl">
         Why Choose Us
       </h1>
-      <div className="flex items-start gap-x-[52px] md:px-4 lg:px-32 justify-center">
+      <div className="flex text-white items-start gap-x-[52px] md:px-4 lg:px-32 justify-center">
         {services.map(function (service, index) {
           return (
             <div
@@ -78,10 +78,10 @@ function FifthSection() {
               <div className="flex gap-y-[8px] flex-col">
                 <Image width={24} height={24} src={service.Image} alt="image" />
                 <div className="flex flex-col gap-y-[8px]">
-                  <h1 className="font-montserrat text-base font-semibold">
+                  <h1 className="font-montserrat text-white text-base font-semibold">
                     {service.title}
                   </h1>
-                  <p className="font-montserrat text-sm font-light">
+                  <p className="font-montserrat text-white text-base font-light">
                     {service.paragraph}
                   </p>
                 </div>

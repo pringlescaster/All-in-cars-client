@@ -8,7 +8,7 @@ import linkedinIcon from "../../public/linkedin.svg";
 
 function footer() {
   return (
-    <div className="flex flex-col  gap-y-[48px] px-4 py-[36px] md:py-[60px] bg-[#050910]">
+    <div className="flex flex-col text-white gap-y-[48px] px-4 py-[36px] md:py-[60px] bg-[#050910]">
       <div className="flex md:grid md:gap-y-[24px] justify-between ">
       <div className="flex flex-col gap-x-[16px] md:flex-row gap-y-[16px] font-semibold font-openSans text-sm">
         <Link href="/company">Company</Link>
@@ -50,7 +50,7 @@ function footer() {
       </div>
    
     </div>
-    <p className="text-sm md:text-base font-montserrat font-light">
+    <p className="text-sm md:text-base text-white font-montserrat font-light">
         Copyright © 2024 All in Cars. All rights reserved. WARNING ABOUT ILLEGAL
         OFFERS OF ALLEGED VEHICLES FROM ALL IN CARS All in Cars has been made
         aware that several third parties across different countries are

@@ -57,7 +57,7 @@ function SixthSection() {
     >
       {eventData &&
         eventData.map((event, index) => (
-          <div key={index} className="flex flex-col gap-y-[32px]">
+          <div key={index} className="flex text-white flex-col gap-y-[32px]">
             <div className="px-0 md:px-8 lg:px-16 flex flex-col gap-y-[8px]">
               <h1
                 className={`font-normal text-white text-center text-lg font-russo md:text-2xl transition-all duration-1000 ${
@@ -67,7 +67,7 @@ function SixthSection() {
                 {event.title}
               </h1>
               <p
-                className={`font-montserrat text-sm md:text-base font-light text-center transition-all duration-1000 ${
+                className={`font-montserrat text-white text-sm md:text-base font-light text-center transition-all duration-1000 ${
                   isVisible ? "opacity-100 translateY-0" : "opacity-0 translateY-10"
                 }`}
               >
