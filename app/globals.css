@@ -11,15 +11,15 @@
 
 /* Define default colors */
 :root {
-  --background: #ffffff;
-  --foreground: #171717;
+  --background: #ffffff; /* Light mode background */
+  --foreground: #171717; /* Light mode text */
 }
 
 /* Dark mode overrides */
 @media (prefers-color-scheme: dark) {
   :root {
-    --background: #0a0a0a;
-    --foreground: #ededed;
+    --background: #1a1a1a; /* Slightly lighter dark background for better readability */
+    --foreground: #f5f5f5; /* Slightly off-white for less stark contrast */
   }
 }
 
