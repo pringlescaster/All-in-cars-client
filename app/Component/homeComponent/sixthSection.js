@@ -14,7 +14,7 @@ function SixthSection() {
     const fetchEventData = async () => {
       try {
         const response = await axios.get(
-          "http://localhost:2000/api/v1/events/6720ac44dcec7bd43e1a0660"
+          (`${process.env.NEXT_PUBLIC_SERVER_URI_AUTH}/events/6720ac44dcec7bd43e1a0660`)
         );
         setEventData([response.data]); // Wrapping in an array for mapping
         setLoading(false);

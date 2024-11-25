@@ -117,7 +117,7 @@ function ForthSection() {
                       <h1 className="font-openSans text-[12px] font-normal">{car.engineType}</h1>
                     </div>
                   </div>
-                  <h1 className="font-exo font-medium text-[#FCA311] text-[14px]">{car.price}</h1>
+                  <h1 className="font-openSans font-medium text-[#FCA311] text-[16px]">{car.price}</h1>
                 </div>
               </div>
             ))}

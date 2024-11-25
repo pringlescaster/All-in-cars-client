@@ -188,7 +188,7 @@ function Main() {
                     </h1>
                   </div>
                 </div>
-                <h1 className="font-exo font-medium text-[#FCA311] text-[14px]">
+                <h1 className="font-openSans font-medium text-[#FCA311] text-[16px]">
                   {car.price}
                 </h1>
               </div>

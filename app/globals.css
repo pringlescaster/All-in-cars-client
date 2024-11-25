@@ -9,30 +9,30 @@
 @tailwind components;
 @tailwind utilities;
 
-/* Define default colors */
+/* Neutral Colors */
 :root {
-  --background: #ffffff; /* Light mode background */
-  --foreground: #171717; /* Light mode text */
+  --background: #ffffff; /* Default light background */
+  --foreground: #000000; /* Default light text */
 }
 
-/* Dark mode overrides */
+/* Dark Mode Overrides */
 @media (prefers-color-scheme: dark) {
   :root {
-    --background: #1a1a1a; /* Slightly lighter dark background for better readability */
-    --foreground: #f5f5f5; /* Slightly off-white for less stark contrast */
+    --background: #000000; /* Default dark background */
+    --foreground: #ffffff; /* Default dark text */
   }
 }
 
-/* Body styles */
+/* Body Styles */
 body {
-  color: var(--foreground);
-  background: var(--background);
-  font-family: 'Lato', Arial, Helvetica, sans-serif;
+  color: var(--foreground); /* Uses neutral foreground */
+  background: var(--background); /* Uses neutral background */
+  font-family: 'Lato', Arial, Helvetica, sans-serif; /* Ensures consistent font */
 }
 
-/* Custom utilities */
+/* Tailwind Custom Utility Example */
 @layer utilities {
   .text-balance {
-    text-wrap: balance;
+    text-wrap: balance; /* Enables balanced text wrapping */
   }
 }
