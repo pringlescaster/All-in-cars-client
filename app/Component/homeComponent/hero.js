@@ -30,13 +30,21 @@ function Hero() {
       </div>
 
       <div
-        className=" mx-auto md:mt-24 p-6 bg-black/80  md:w-[30%] rounded-xl text-white"     >
-        <p className="font-montserrat font-medium">
-          Explore our top-quality vehicles and find your perfect match. At
-          AllInCars, book a date, test drive your choice, and buy with
-          confidence.
-        </p>
-      </div>
+  className="mx-auto md:mt-24 p-6 rounded-xl md:w-[40%] text-white"
+  style={{
+    background: "rgba(0, 0, 0, 0.6)", // Semi-transparent background
+    backdropFilter: "blur(10px)", // Blur effect for glassmorphism
+    WebkitBackdropFilter: "blur(10px)", // For Safari support
+    border: "1px solid rgba(255, 255, 255, 0.3)", // Optional border for the glass effect
+  }}
+>
+  <p className="font-montserrat text-md font-medium">
+    Explore our top-quality vehicles and find your perfect match. At
+    AllInCars, book a date, test drive your choice, and buy with
+    confidence.
+  </p>
+</div>
+
     </div>
   );
 }

@@ -107,44 +107,43 @@ const Layout = ({ children }) => {
             </div>
 
             {/* Mobile nav menu */}
-            <div
-              className={`fixed bg-[#050910] top-0 right-0 w-full h-full transition-transform duration-300 ease-in-out ${
-                nav ? "translate-x-0" : "translate-x-full"
-              }`}
-            >
-              <div className="flex justify-between items-center px-4 py-3">
-                <Image src="/allInCar.svg" alt="Logo" width={50} height={50} />
-                <div onClick={handleClick}>
-                  {nav ? (
-                    <Image src="/cancel.svg" alt="Cancel" width={22} height={22} />
-                  ) : (
-                    <Image src="/hamburger.svg" alt="Hamburger" width={22} height={22} />
-                  )}
-                </div>
-              </div>
-              <ul className="grid justify-center items-center text-center font-lato gap-y-4 mt-4">
-                <li>
-                  <Link href="/" className={getLinkClassName("/")}>
-                    Home
-                  </Link>
-                </li>
-                <li>
-                  <Link href="/shop" className={getLinkClassName("/shop")}>
-                    Shop
-                  </Link>
-                </li>
-                <li>
-                  <Link href="/about" className={getLinkClassName("/about")}>
-                    About
-                  </Link>
-                </li>
-                <li>
-                  <Link href="/contact-us" className={getLinkClassName("/contact-us")}>
-                    Contact Us
-                  </Link>
-                </li>
-              </ul>
-            </div>
+            {/* Mobile nav menu */}
+<div
+  className={`fixed bg-[#050910] top-0 right-0 w-full h-full transition-transform duration-300 ease-in-out md:hidden z-50 ${
+    nav ? "translate-x-0" : "translate-x-full"
+  }`}
+>
+  <div className="flex justify-between items-center px-4 py-3">
+    <Image src="/allInCar.svg" alt="Logo" width={50} height={50} />
+    <div onClick={handleClick}>
+      <Image src="/cancel.svg" alt="Cancel" width={22} height={22} />
+    </div>
+  </div>
+  <ul className="grid justify-center items-center text-center font-lato gap-y-4 mt-4">
+    <li>
+      <Link href="/" className={getLinkClassName("/")}>
+        Home
+      </Link>
+    </li>
+    <li>
+      <Link href="/shop" className={getLinkClassName("/shop")}>
+        Shop
+      </Link>
+    </li>
+    <li>
+      <Link href="/about" className={getLinkClassName("/about")}>
+        About
+      </Link>
+    </li>
+    <li>
+      <Link href="/contact-us" className={getLinkClassName("/contact-us")}>
+        Contact Us
+      </Link>
+    </li>
+  </ul>
+</div>
+
+
           </div>
         )}
 

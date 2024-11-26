@@ -27,7 +27,7 @@ function Page() {
       if (car_id) {
         try {
           const response = await axios.get(
-            `http://localhost:2000/api/v1/car/${car_id}`
+            `${process.env.NEXT_PUBLIC_SERVER_URI_AUTH}/car/${car_id}`
           );
           setCarDetails(response.data);
         } catch (err) {
@@ -62,13 +62,12 @@ function Page() {
   return (
     <div>
       {loading ? (
-        <div>Loading...</div>
-      ) : error ? (
-        <div>{error}</div>
+        <div className="py-8 text-center text-white mx-auto">Loading...</div>
+      
       ) : (
         carDetails && (
           <div>
-            <div className="flex justify-between flex-col">
+            <div className="flex text-white justify-between flex-col">
               <div
                 className="grid gap-y-4 px-6 py-8"
               >
