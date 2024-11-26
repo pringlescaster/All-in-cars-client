@@ -19,7 +19,7 @@ function Main() {
   useEffect(() => {
     const fetchFavorites = async () => {
       try {
-        const response = await axios.get("http://localhost:2000/api/v1/favorites");
+        const response = await axios.get(`${process.env.NEXT_PUBLIC_SERVER_URI_AUTH}/favorites`);
         
 
         // Assuming the response contains a 'favorites' array
@@ -51,9 +51,10 @@ function Main() {
 
       const toggledCar = updatedCars.find((car) => car._id === carId);
       if (toggledCar.isFavorite) {
-        await axios.post("http://localhost:2000/api/v1/favorites", { carId });
+        await axios.post(`${process.env.NEXT_PUBLIC_SERVER_URI_AUTH}/favorites`, { carId } ,
+        );
       } else {
-        await axios.delete(`http://localhost:2000/api/v1/favorites/${carId}`);
+        await axios.delete(`${process.env.NEXT_PUBLIC_SERVER_URI_AUTH}/favorites/${carId}`);
       }
        // Filter out the car from the list immediately in the frontend
        const filteredCars = updatedCars.filter((car) => car._id !== carId);

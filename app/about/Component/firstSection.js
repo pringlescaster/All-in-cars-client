@@ -9,7 +9,7 @@ function firstSection() {
         backgroundImage: `url("/aboutUsbg.png")`
     }}
     >
-      <h1 className='font-russo text-center pt-16 md:text-lg lg:text-xl text-base '>About Us</h1>
+      <h1 className='font-russo text-center pt-16 md:text-lg lg:text-xl text-base text-white '>About Us</h1>
     </div>
   )
 }

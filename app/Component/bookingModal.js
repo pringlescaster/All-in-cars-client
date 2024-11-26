@@ -32,8 +32,8 @@ function BookingModal({carId, onClose, onBookingSuccess }) {
       }
   
       const response = await axios.post(
-        "http://localhost:2000/api/v1/booking",
-        { carId, date },
+        `${process.env.NEXT_PUBLIC_SERVER_URI_AUTH}/booking` ,{ carId, date }
+      ,
         {
           headers: {
             "Content-Type": "application/json",
@@ -62,7 +62,7 @@ function BookingModal({carId, onClose, onBookingSuccess }) {
   const { user } = useAuthStore();
 
   return (
-    <div className="bg-[#e1e1e1] rounded-[10px] gap-y-[8px] pt-4 pb-6 flex flex-col px-8">
+    <div className="bg-[#e1e1e1] text-white rounded-[10px] gap-y-[8px] pt-4 pb-6 flex flex-col px-8">
       <Image
         className="ml-auto cursor-pointer"
         onClick={onClose}

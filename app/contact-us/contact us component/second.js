@@ -7,7 +7,7 @@ import Location from "../../../public/Location.svg"
 
 function second() {
   return (
-    <div className="bg-[#030508] px-[14px] py-[64px] grid md:grid-cols-2 md:gap-x-[24px] lg:gap-x-[100px] lg:px-[140px] ">
+    <div className="bg-[#030508] text-white px-[14px] py-[64px] grid md:grid-cols-2 md:gap-x-[24px] lg:gap-x-[100px] lg:px-[140px] ">
       <form className="bg-white/10 grid gap-y-[22px] pt-8 pb-10 px-4 rounded-[10px]">
         <h1 className="text-[#F7F7F7] text-lg font-montserrat font-semibold lg:text-2xl">
           Get In Touch

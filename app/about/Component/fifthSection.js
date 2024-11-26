@@ -7,11 +7,11 @@ import Img from "../../../public/imgg.svg"
 function fifthSection() {
   return (
     <div className="px-4 py-[80px] bg-[#030508] flex flex-col justify-center gap-y-[64px]">
-      <div className="px-0 md:px-8 lg:px-16 flex flex-col gap-y-[8px]">
+      <div className="px-0 md:px-8 lg:px-16 text-white flex flex-col gap-y-[8px]">
         <h1 className="font-normal text-white text-center text-lg font-russo md:text-2xl">
           Our Story
         </h1>
-        <p className="font-montserrat text-sm md:text-lg font-medium text-center">
+        <p className="font-montserrat text-white text-sm md:text-lg font-medium text-center">
           Welcome to "All In Cars" – your ultimate destination for automotive
           excellence. Our journey began with a group of car enthusiasts
           dedicated to creating a premier online hub for car lovers. From

@@ -12,7 +12,7 @@ function ForthSection() {
   useEffect(() => {
     const fetchTeam = async () => {
       try {
-        const response = await axios.get("http://localhost:2000/api/v1/teams");
+        const response = await axios.get(`${process.env.NEXT_PUBLIC_SERVER_URI_AUTH}/teams`);
         setTeam(response.data);
         setLoading(false);
       } catch (error) {
@@ -24,12 +24,12 @@ function ForthSection() {
   }, []);
 
   return (
-    <div className="px-4 py-[60px] bg-[#030508]">
+    <div className="px-4 text-white py-[60px] bg-[#030508]">
       <div className="px-0 md:px-8 lg:px-16 flex flex-col gap-y-[8px]">
         <h1 className="font-normal text-white text-center text-lg font-russo md:text-2xl">
           Meet Our Team
         </h1>
-        <p className="font-montserrat text-sm md:text-base font-light text-center">
+        <p className="font-montserrat text-sm text-white md:text-base font-light text-center">
           At "All In Cars," our team of industry experts, car enthusiasts, and
           tech professionals drives our passion for excellence. We are dedicated
           to providing top-notch content, products, and services. Meet the
