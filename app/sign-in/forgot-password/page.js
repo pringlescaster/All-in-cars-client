@@ -22,8 +22,8 @@ function Page() {
   };
 
   return (
-    <div className="flex flex-col lg:flex-row md:justify-center bg-[#030508] h-screen lg:h-full">
-      <div className="grid px-6 lg:px-32 py-8 justify-center items-center lg:items-start gap-y-[60px] lg:gap-y-[0px] lg:w-1/2">
+    <div className="flex flex-col lg:flex-row md:justify-center bg-[#030508] h-screen text-white lg:h-full">
+      <div className="grid px-4 py-8  items-center lg:justify-center lg:items-start gap-y-[30px] lg:gap-y-[0px] lg:w-1/2">
         <div className="flex flex-col gap-y-[8px]">
           <h1 className="font-russo text-lg text-left">Forgot Password</h1>
           <p className="font-montserrat text-left text-base">

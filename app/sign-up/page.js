@@ -34,8 +34,8 @@ function page() {
   };
 
   return (
-    <div className="flex flex-col lg:flex-row md:justify-center bg-[#030508] h-screen lg:h-full">
-      <div className="grid px-4 py-8 justify-center items-center lg:items-start gap-y-[30px] lg:gap-y-[0px] lg:w-1/2">
+    <div className="flex flex-col lg:flex-row md:justify-center text-white bg-[#030508] h-screen lg:h-full">
+      <div className="grid px-4 py-8  items-center lg:justify-center lg:items-start gap-y-[30px] lg:gap-y-[0px] lg:w-1/2">
         <div className="flex flex-col gap-y-[8px]">
           <h1 className="font-russo text-lg text-left">Create Account</h1>
           <p className="font-montserrat text-left text-base">
@@ -97,7 +97,7 @@ function page() {
               {isLoading ? <Loader className="animate-spin mx-auto" size={24} />: "Continue" }
             </button>
           </form>
-          <div className="text-sm flex gap-x-[4px] items-center justify-center text-center">
+          <div className="text-base flex gap-x-[4px] items-center justify-center text-center">
             <h1 className="text-white/80">Already have an account?</h1>
             <Link href="/sign-in">
               <button className="text-[#FCA311]">Sign In</button>
