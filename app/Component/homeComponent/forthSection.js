@@ -57,8 +57,7 @@ function ForthSection() {
       if (toggledCar.isFavorite) {
         // Add to favorites
         await axios.post(`${process.env.NEXT_PUBLIC_SERVER_URI_AUTH}/favorites`, { carId } ,
-        
-        );
+      );
       } else {
         // Remove from favorites
         await axios.delete(`${process.env.NEXT_PUBLIC_SERVER_URI_AUTH}/favorites/${carId}`);

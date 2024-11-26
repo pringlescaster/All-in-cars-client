@@ -31,7 +31,7 @@ function Main() {
   useEffect(() => {
     const fetchCars = async () => {
       try {
-        const response = await axios.get("http://localhost:2000/api/v1/cars");
+        const response = await axios.get(`${process.env.NEXT_PUBLIC_SERVER_URI_AUTH}/cars`);
         setCars(response.data);
         setFilterData(
           response.data.filter((car) => car.categories === "Sport Cars") // Default filter
@@ -67,10 +67,10 @@ function Main() {
       const toggledCar = updatedCars.find((car) => car._id === carId);
       if (toggledCar.isFavorite) {
         // Add to favorites
-        await axios.post("http://localhost:2000/api/v1/favorites", { carId });
+        await axios.post(`${process.env.NEXT_PUBLIC_SERVER_URI_AUTH}/favorites`, { carId });
       } else {
         // Remove from favorites
-        await axios.delete(`http://localhost:2000/api/v1/favorites/${carId}`);
+        await axios.delete(`${process.env.NEXT_PUBLIC_SERVER_URI_AUTH}/favorites/${carId}`);
       }
     } catch (error) {
       console.error("Error toggling favorite:", error);
@@ -94,8 +94,8 @@ function Main() {
   );
 }, [searchQuery, activeCategory]);
 
-  if (loading) return <div>Loading...</div>;
-  if (error) return <div>Error: {error}</div>;
+  if (loading) return <div className="py-6 text-center text-white">Loading...</div>;
+  
 
   return (
     <div className="">
@@ -103,7 +103,7 @@ function Main() {
 <Search searchQuery={searchQuery} setSearchQuery={setSearchQuery} />
 
       {/* Categories Section */}
-      <div className="bg-[#050910] flex flex-wrap justify-start lg:justify-around px-8 gap-8 py-8">
+      <div className="bg-[#050910] flex flex-wrap justify-start text-white lg:justify-around px-8 gap-8 py-8">
         {["Sport Cars", "SUVs", "Sedans", "Convertibles", "Electric"].map(
           (category) => (
             <div
@@ -195,7 +195,7 @@ function Main() {
             </div>
           ))
         ) : (
-          <div className="text-white">No cars available for this category.</div>
+          <div className="text-white text-center py-6 ">No cars available for this category.</div>
         )}
       </div>
     </div>
