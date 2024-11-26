@@ -67,7 +67,7 @@ function Main() {
 
 
   return (
-    <div className="px-4 flex flex-col py-[60px] bg-[#030508]">
+    <div className="px-4 text-white flex flex-col py-[60px] bg-[#030508]">
       <div className="grid grid-cols-2 gap-y-[12px] gap-x-[12px] md:grid-cols-3 lg:flex md:justify-center md:gap-x-[16px] py-[24px] justify-start px-4 md:py-[40px]">
         {cars && cars.map((car) => (
           <div key={car._id} className="flex bg-white/15 flex-col rounded-xl w-full lg:w-[22%]">

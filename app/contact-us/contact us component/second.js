@@ -7,8 +7,8 @@ import Location from "../../../public/Location.svg"
 
 function second() {
   return (
-    <div className="bg-[#030508] text-white px-[14px] py-[64px] grid md:grid-cols-2 md:gap-x-[24px] lg:gap-x-[100px] lg:px-[140px] ">
-      <form className="bg-white/10 grid gap-y-[22px] pt-8 pb-10 px-4 rounded-[10px]">
+    <div className="bg-[#030508] text-white px-[14px] py-[64px] grid gap-y-[16px] md:grid-cols-2 md:gap-x-[24px] lg:gap-x-[100px] lg:px-[140px] ">
+      <form className="bg-white/10 grid gap-y-[22px] pt-8 pb-10 px-3 rounded-[10px]">
         <h1 className="text-[#F7F7F7] text-lg font-montserrat font-semibold lg:text-2xl">
           Get In Touch
         </h1>
@@ -56,7 +56,7 @@ function second() {
           Send Now
         </button>
       </form>
-      <div className="flex gap-y-[24px] lg:gap-y-[48px] flex-col justify-center items-start">
+      <div className="flex gap-y-[24px] lg:gap-y-[48px] flex-col justify-cente px-4 items-start">
         <p className="font-montserrat text-base  text-center md:text-left text-white/80">Have questions or need assistance? Our dedicated team is here to help with any inquiries or support you may need. Reach out to us via phone, email, or our online contact form, and we'll get back to you promptly to ensure your experience with "All In Cars" is exceptional.</p>
         <div className="flex mt-4 flex-wrap gap-y-[24px] gap-x-[24px] lg:gap-x-[60px] lg:gap-y-[40px] justify-start">
             <div className="grid gap-y-2 justify-center items-center">
