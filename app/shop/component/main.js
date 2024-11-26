@@ -144,7 +144,7 @@ function Main() {
               key={car._id}
               className="flex bg-white/15 flex-col rounded-xl w-full  lg:w-[22%]"
             >
-              <div className=" text-white relative">
+              <div className=" text-white relative cursor-pointer" onClick={() => handleCarClick(car._id)} >
                 <Image
                   src={car.image}
                   alt="car images"
@@ -156,7 +156,9 @@ function Main() {
                   src={car.isFavorite ? selectedFavorite : favoriteIcon}
                   alt="favorite icon"
                   className="absolute top-2 right-2 w-8 h-8 z-10 cursor-pointer"
-                  onClick={() => handleFavoriteToggle(car._id)}
+                  onClick={(event) => {
+                    event.stopPropagation();
+                    handleFavoriteToggle(car._id)}}
                 />
               </div>
 
