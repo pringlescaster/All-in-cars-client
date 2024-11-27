@@ -4,14 +4,24 @@ import axios from "axios";
 axios.defaults.withCredentials = true; // Enable cookies
 
 export const useAuthStore = create((set) => ({
-  user: typeof window !== "undefined" && localStorage.getItem("user")
-    ? JSON.parse(localStorage.getItem("user"))
-    : null,
-  isAuthenticated: typeof window !== "undefined" && localStorage.getItem("user") ? true : false,
+  user: null,
+  isAuthenticated: false,
   error: null,
   isLoading: false,
-  isCheckingAuth: true,
+  isCheckingAuth: true, // Set this to true initially while checking the auth status
   message: null,
+
+  // This useEffect will run when the page loads
+  checkAuth: () => {
+    if (typeof window !== "undefined") {
+      const user = localStorage.getItem("user");
+      if (user) {
+        set({ user: JSON.parse(user), isAuthenticated: true, isCheckingAuth: false });
+      } else {
+        set({ isAuthenticated: false, isCheckingAuth: false });
+      }
+    }
+  },
 
   // Logout
   logout: async () => {
@@ -19,18 +29,12 @@ export const useAuthStore = create((set) => ({
     try {
       await axios.post(`${process.env.NEXT_PUBLIC_SERVER_URI_AUTH}/logout`);
       localStorage.removeItem("user"); // Clear user data from localStorage
-      set({
-        user: null,
-        isAuthenticated: false,
-        error: null,
-        isLoading: false,
-      });
+      set({ user: null, isAuthenticated: false, isLoading: false });
     } catch (error) {
       set({
         error: error.response?.data?.message || "Error logging out",
         isLoading: false,
       });
-      throw error;
     }
   },
 
@@ -57,35 +61,15 @@ export const useAuthStore = create((set) => ({
     }
   },
 
-  // Verify email
-  verifyEmail: async (code) => {
-    set({ isLoading: true, error: null });
-    try {
-      const response = await axios.post(
-        `${process.env.NEXT_PUBLIC_SERVER_URI_AUTH}/verify-email`, { code }
-      );
-      set({
-        user: response.data.user,
-        isAuthenticated: true,
-        isLoading: false,
-      });
-      localStorage.setItem("user", JSON.stringify(response.data.user)); // Save user data to localStorage
-      return response.data;
-    } catch (error) {
-      set({ error: error.response?.data?.message || "Error verifying email", isLoading: false });
-      throw error;
-    }
-  },
-
   // Check if user is authenticated
-  checkAuth: async () => {
-    set({ isCheckingAuth: true, error: null });
-    try {
-      const response = await axios.get(`${process.env.NEXT_PUBLIC_SERVER_URI_AUTH}/check-auth`);
-      set({ user: response.data.user, isAuthenticated: true, isCheckingAuth: false });
-      localStorage.setItem("user", JSON.stringify(response.data.user)); // Save user data to localStorage
-    } catch (error) {
-      set({ error: null, isCheckingAuth: false, isAuthenticated: false });
+  checkAuthOnLoad: () => {
+    if (typeof window !== "undefined") {
+      const user = localStorage.getItem("user");
+      if (user) {
+        set({ user: JSON.parse(user), isAuthenticated: true, isCheckingAuth: false });
+      } else {
+        set({ isAuthenticated: false, isCheckingAuth: false });
+      }
     }
   },
 
@@ -99,6 +83,7 @@ export const useAuthStore = create((set) => ({
         user: response.data.user,
         error: null,
         isLoading: false,
+        isCheckingAuth: false, // Set this to false once the user is authenticated
       });
       localStorage.setItem("user", JSON.stringify(response.data.user)); // Save user data to localStorage
     } catch (error) {

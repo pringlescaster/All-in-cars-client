@@ -22,5 +22,5 @@ export default function ProtectedRoute({ children }) {
     return null; // Prevent rendering content while redirecting
   }
 
-  return <>{children}</>;
+  return <>{children}</>; // Render the children components if authenticated
 }

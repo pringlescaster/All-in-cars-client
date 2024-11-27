@@ -76,7 +76,7 @@ function Page() {
           <button
             type="submit"
             disabled={isLoading}
-            className="bg-[#FCA311] text-[#151515] py-[10px] rounded-[10px] font-openSans font-semibold w-full md:w-[300px] lg:w-[350px]"
+            className="bg-[#FCA311] mt-4 text-[#151515] py-[10px] rounded-[10px] font-openSans font-semibold"
           >
             {isLoading ? "Verifying..." : "Verify Email"}
           </button>
