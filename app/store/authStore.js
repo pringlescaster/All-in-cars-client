@@ -1,17 +1,18 @@
+// authStore.js
 import { create } from "zustand";
 import axios from "axios";
 
-axios.defaults.withCredentials = true; // Enable cookies
+axios.defaults.withCredentials = true; //enable cookies
 
 export const useAuthStore = create((set) => ({
   user: null,
   isAuthenticated: false,
   error: null,
   isLoading: false,
-  isCheckingAuth: true, // Set this to true initially while checking the auth status
+  isCheckingAuth: true,
   message: null,
 
-  // This useEffect will run when the page loads
+  // This will run when the page loads to check the auth state
   checkAuth: () => {
     if (typeof window !== "undefined") {
       const user = localStorage.getItem("user");
@@ -23,23 +24,23 @@ export const useAuthStore = create((set) => ({
     }
   },
 
-  // Logout
-  logout: async () => {
-    set({ isLoading: true, error: null });
-    try {
-      await axios.post(`${process.env.NEXT_PUBLIC_SERVER_URI_AUTH}/logout`);
-      localStorage.removeItem("user"); // Clear user data from localStorage
-      set({ user: null, isAuthenticated: false, isLoading: false });
-    } catch (error) {
-      set({
-        error: error.response?.data?.message || "Error logging out",
-        isLoading: false,
-      });
-    }
-  },
+    // Logout
+    logout: async () => {
+      set({ isLoading: true, error: null });
+      try {
+        await axios.post(`${process.env.NEXT_PUBLIC_SERVER_URI_AUTH}/logout`);
+        localStorage.removeItem("user"); // Clear user data from localStorage
+        set({ user: null, isAuthenticated: false, isLoading: false });
+      } catch (error) {
+        set({
+          error: error.response?.data?.message || "Error logging out",
+          isLoading: false,
+        });
+      }
+    },
 
-  // Sign up
-  signup: async (email, password, name) => {
+   // Sign up
+   signup: async (email, password, name) => {
     set({ isLoading: true, error: null });
     try {
       const response = await axios.post(
@@ -61,8 +62,30 @@ export const useAuthStore = create((set) => ({
     }
   },
 
-  // Check if user is authenticated
-  checkAuthOnLoad: () => {
+
+  verifyEmail:  async (code) => {
+    set({ isLoading: true, error: null });
+    try {
+        const response = await axios.post(
+`${process.env.NEXT_PUBLIC_SERVER_URI_AUTH}/verify-email`, { code }
+        );
+        set({
+          user: response.data.user,
+          isAuthenticated: true,
+          isLoading: false,
+        });
+        return response.data
+        
+    } catch (error) {
+        set({ error: error.response?.data?.message || "Error verifying email", isLoading: false})
+    throw error;
+    }
+  },
+
+
+
+  // This will run when the page loads to check the auth state
+  checkAuth: () => {
     if (typeof window !== "undefined") {
       const user = localStorage.getItem("user");
       if (user) {
@@ -73,7 +96,7 @@ export const useAuthStore = create((set) => ({
     }
   },
 
-  // Login
+ // Login
   login: async (email, password) => {
     set({ isLoading: true, error: null });
     try {
@@ -92,7 +115,10 @@ export const useAuthStore = create((set) => ({
     }
   },
 
-  // Forgot password
+
+
+
+// Forgot password
   forgotPassword: async (email) => {
     set({ isLoading: true, error: null, message: null });
     try {
@@ -107,22 +133,25 @@ export const useAuthStore = create((set) => ({
     }
   },
 
-  // Reset password
-  resetPassword: async (token, password) => {
-    set({
-      isLoading: true,
-      error: null,
-      message: null,
-    });
-    try {
-      const response = await axios.post(`${process.env.NEXT_PUBLIC_SERVER_URI_AUTH}/reset-password/${token}`, { password });
-      set({ message: response.data.message, isLoading: false });
-    } catch (error) {
-      set({
-        isLoading: false,
-        error: error.response.data.message || "Error resetting password",
-      });
-      throw error;
-    }
-  },
+
+resetPassword: async (token, password) => {
+set({
+  isLoading: true,
+  error: null,
+  message: null,
+});
+try {
+  const response = await axios.post(`${process.env.NEXT_PUBLIC_SERVER_URI_AUTH}/reset-password/${token}`, { password });
+  set({ message: response.data.message, isLoading: false });
+} catch (error) {
+  set({isLoading: false,
+    error: error.response.data.message || "Error resetting password",
+   });
+   throw error;
+}
+},
+
+
 }));
+
+

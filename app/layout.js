@@ -39,7 +39,7 @@ const Layout = ({ children }) => {
   };
 
   // Define routes where navbar should not appear
-  const excludeNavbarRoutes = ["reset-password"]; // Exclude the reset-password route
+  const excludeNavbarRoutes = ["reset-password", "sign-in", "sign-up", "verify-email", "forgot-password"]; // Exclude the reset-password route
 
   // Only render navbar if current route is not in excludeNavbarRoutes
   const showNavbar = !excludeNavbarRoutes.includes(pathname);
