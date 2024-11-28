@@ -3,11 +3,9 @@
 // authStore.js
 import { create } from "zustand";
 import axios from "axios";
-import dynamic from 'next/dynamic';
 
-const ClientOnlyAuthStore = dynamic(() => import('../path-to-authStore'), { 
-  ssr: false 
-});
+
+
 
 
 axios.defaults.withCredentials = true; // Enable cookies
