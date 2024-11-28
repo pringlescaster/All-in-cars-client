@@ -2,7 +2,7 @@
 import { create } from "zustand";
 import axios from "axios";
 
-axios.defaults.withCredentials = true; //enable cookies
+axios.defaults.withCredentials = true; // Enable cookies
 
 export const useAuthStore = create((set) => ({
   user: null,
@@ -12,32 +12,23 @@ export const useAuthStore = create((set) => ({
   isCheckingAuth: true,
   message: null,
 
-  // This will run when the page loads to check the auth state
-  checkAuth: () => {
-    if (typeof window !== "undefined") {
-      const user = localStorage.getItem("user");
-      if (user) {
-        set({ user: JSON.parse(user), isAuthenticated: true, isCheckingAuth: false });
-      } else {
-        set({ isAuthenticated: false, isCheckingAuth: false });
-      }
+
+   // Logout
+  logout: async () => {
+    set({ isLoading: true, error: null });
+    try {
+      await axios.post(`${process.env.NEXT_PUBLIC_SERVER_URI_AUTH}/logout`);
+      localStorage.removeItem("token"); // Remove token
+      localStorage.removeItem("user"); // Remove user data
+      set({ user: null, isAuthenticated: false, isLoading: false });
+    } catch (error) {
+      set({
+        error: error.response?.data?.message || "Error logging out",
+        isLoading: false,
+      });
     }
   },
 
-    // Logout
-    logout: async () => {
-      set({ isLoading: true, error: null });
-      try {
-        await axios.post(`${process.env.NEXT_PUBLIC_SERVER_URI_AUTH}/logout`);
-        localStorage.removeItem("user"); // Clear user data from localStorage
-        set({ user: null, isAuthenticated: false, isLoading: false });
-      } catch (error) {
-        set({
-          error: error.response?.data?.message || "Error logging out",
-          isLoading: false,
-        });
-      }
-    },
 
    // Sign up
    signup: async (email, password, name) => {
@@ -84,7 +75,7 @@ export const useAuthStore = create((set) => ({
 
 
 
-  // This will run when the page loads to check the auth state
+  // Check authentication
   checkAuth: () => {
     if (typeof window !== "undefined") {
       const user = localStorage.getItem("user");
@@ -96,22 +87,34 @@ export const useAuthStore = create((set) => ({
     }
   },
 
- // Login
-  login: async (email, password) => {
+
+  
+   // Login
+   login: async (email, password) => {
     set({ isLoading: true, error: null });
     try {
-      const response = await axios.post(`${process.env.NEXT_PUBLIC_SERVER_URI_AUTH}/login`, { email, password });
+      const response = await axios.post(
+        `${process.env.NEXT_PUBLIC_SERVER_URI_AUTH}/login`,
+        { email, password }
+      );
+      const { user, token } = response.data;
+
+      // Save user and token
+      localStorage.setItem("token", token); // Store token securely
+      localStorage.setItem("user", JSON.stringify(user)); // Store user data
+
       set({
+        user,
         isAuthenticated: true,
-        user: response.data.user,
-        error: null,
         isLoading: false,
-        isCheckingAuth: false, // Set this to false once the user is authenticated
+        isCheckingAuth: false,
       });
-      localStorage.setItem("user", JSON.stringify(response.data.user)); // Save user data to localStorage
     } catch (error) {
-      set({ error: error.response?.data?.message || "Error logging in", isLoading: false });
-      throw error;
+      set({
+        error: error.response?.data?.message || "Error logging in",
+        isLoading: false,
+      });
+      throw error; // Surface error to the component for display
     }
   },
 

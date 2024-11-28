@@ -23,6 +23,7 @@ function BookingModal({carId, onClose, onBookingSuccess }) {
     setIsLoading(true);
     setErrorMessage("");
     setSuccessMessage("");
+    const token = localStorage.getItem("token");
   
     try {
       if (!date) {
@@ -34,11 +35,11 @@ function BookingModal({carId, onClose, onBookingSuccess }) {
       const response = await axios.post(
         `${process.env.NEXT_PUBLIC_SERVER_URI_AUTH}/booking` ,{ carId, date }
       ,
-        {
-          headers: {
-            "Content-Type": "application/json",
-            Authorization: `Bearer ${localStorage.getItem("token")}`,
-          },
+      {
+        headers: {
+          "Content-Type": "application/json",
+          Authorization: `Bearer ${token}`,
+        },
         }
       );
   

@@ -137,7 +137,7 @@ function Main() {
       </div>
 
       {/* Filtered Cars Display */}
-      <div className="grid grid-cols-2 text-white gap-y-[12px] gap-x-[12px] md:grid-cols-3 lg:flex md:justify-center md:gap-x-[16px] py-[24px] justify-start px-4 md:py-[40px]">
+      <div className="flex px-8 flex-col gap-y-[22px] gap-x-[12px] justify-center md:grid md:grid-cols-3 md:justify-center lg:flex lg:flex-row md:gap-x-[16px] py-[24px]  md:py-[40px]">
         {filterData.length > 0 ? (
           filterData.map((car) => (
             <div

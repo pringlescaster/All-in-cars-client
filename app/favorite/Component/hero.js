@@ -2,7 +2,7 @@ import React from 'react'
 
 function hero() {
   return (
-    <div className=' h-[150px] bg-cover bg-center  w-full'
+    <div className=' h-[150px] text-white bg-cover bg-center  w-full'
     style={{
         backgroundImage: `url("/favorite.png")`
     }}

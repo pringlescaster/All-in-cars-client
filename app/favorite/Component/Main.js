@@ -20,8 +20,6 @@ function Main() {
     const fetchFavorites = async () => {
       try {
         const response = await axios.get(`${process.env.NEXT_PUBLIC_SERVER_URI_AUTH}/favorites`);
-        
-
         // Assuming the response contains a 'favorites' array
         const carsWithFavoriteStatus = response.data.favorites.map(car => ({
           ...car,

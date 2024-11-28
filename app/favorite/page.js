@@ -6,13 +6,12 @@ import ProtectedRoute from '../hooks/protectedRoute';
 
 function page() {
   return (
-    <ProtectedRoute>
+
       <div>
       <Hero />
       <Main />
       <Footer />
     </div>
-    </ProtectedRoute>
     
   )
 }

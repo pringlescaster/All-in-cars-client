@@ -26,7 +26,7 @@ function Page() {
       <div className="grid px-4 py-8  items-center lg:justify-center lg:items-start gap-y-[30px] lg:gap-y-[0px] lg:w-1/2">
         <div className="flex flex-col gap-y-[8px]">
           <h1 className="font-russo text-lg text-left">Forgot Password</h1>
-          <p className="font-montserrat text-left text-base">
+          <p className="font-montserrat text-left text-base lg:w-[80%]">
             Please enter your email address to receive a verification code.
           </p>
         </div>
