@@ -3,6 +3,12 @@
 // authStore.js
 import { create } from "zustand";
 import axios from "axios";
+import dynamic from 'next/dynamic';
+
+const ClientOnlyAuthStore = dynamic(() => import('../path-to-authStore'), { 
+  ssr: false 
+});
+
 
 axios.defaults.withCredentials = true; // Enable cookies
 
@@ -20,6 +26,11 @@ export const useAuthStore = create((set) => ({
     set({ isLoading: true, error: null });
     try {
       await axios.post(`${process.env.NEXT_PUBLIC_SERVER_URI_AUTH}/logout`);
+      if (typeof window !== "undefined") {
+        localStorage.removeItem("token"); // Remove token
+        localStorage.removeItem("user"); // Remove user data
+      }
+
       localStorage.removeItem("token"); // Remove token
       localStorage.removeItem("user"); // Remove user data
       set({ user: null, isAuthenticated: false, isLoading: false });
@@ -35,6 +46,10 @@ export const useAuthStore = create((set) => ({
    // Sign up
    signup: async (email, password, name) => {
     set({ isLoading: true, error: null });
+    if (typeof window !== "undefined") {
+      localStorage.removeItem("token"); // Remove token
+      localStorage.removeItem("user"); // Remove user data
+    }
     try {
       const response = await axios.post(
         `${process.env.NEXT_PUBLIC_SERVER_URI_AUTH}/signup`,
@@ -58,6 +73,7 @@ export const useAuthStore = create((set) => ({
 
   verifyEmail:  async (code) => {
     set({ isLoading: true, error: null });
+
     try {
         const response = await axios.post(
 `${process.env.NEXT_PUBLIC_SERVER_URI_AUTH}/verify-email`, { code }
@@ -94,6 +110,10 @@ export const useAuthStore = create((set) => ({
    // Login
    login: async (email, password) => {
     set({ isLoading: true, error: null });
+    if (typeof window !== "undefined") {
+      localStorage.removeItem("token"); // Remove token
+      localStorage.removeItem("user"); // Remove user data
+    }
     try {
       const response = await axios.post(
         `${process.env.NEXT_PUBLIC_SERVER_URI_AUTH}/login`,
