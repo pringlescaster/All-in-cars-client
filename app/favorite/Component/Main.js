@@ -1,13 +1,13 @@
-'use client';
+"use client";
 
-import React, { useState, useEffect } from 'react';
-import axios from 'axios';
-import Image from 'next/image';
+import React, { useState, useEffect } from "react";
+import axios from "axios";
+import Image from "next/image";
 import speedIcon from "../../../public/speedIcon.svg";
 import engineIcon from "../../../public/engineIcon.svg";
 import favoriteIcon from "../../../public/favorite.svg";
 import selectedFavorite from "../../../public/selectedfavorite.svg";
-import { useAuthStore } from '@/app/store/authStore';
+import { useAuthStore } from "@/app/store/authStore";
 
 function Main() {
   const [cars, setCars] = useState([]);
@@ -19,7 +19,16 @@ function Main() {
   useEffect(() => {
     const fetchFavorites = async () => {
       try {
-        const response = await axios.get(`${process.env.NEXT_PUBLIC_SERVER_URI_AUTH}/favorites`);
+        // Get token from localStorage
+        const token = localStorage.getItem("token");
+        
+        // Set axios headers if token is present
+        const config = token ? {
+          headers: { Authorization: `Bearer ${token}` }
+        } : {};
+        
+        const response = await axios.get(`${process.env.NEXT_PUBLIC_SERVER_URI_AUTH}/favorites`, config);
+        
         // Assuming the response contains a 'favorites' array
         const carsWithFavoriteStatus = response.data.favorites.map(car => ({
           ...car,
@@ -38,6 +47,15 @@ function Main() {
 
   const handleFavoriteToggle = async (carId) => {
     try {
+      // Get token from localStorage
+      const token = localStorage.getItem("token");
+      
+      // Set axios headers if token is present
+      const config = token ? {
+        headers: { Authorization: `Bearer ${token}` }
+      } : {};
+
+      // Update the favorite status of the car in the frontend
       const updatedCars = cars.map((car) => {
         if (car._id === carId) {
           return { ...car, isFavorite: !car.isFavorite };
@@ -49,20 +67,21 @@ function Main() {
 
       const toggledCar = updatedCars.find((car) => car._id === carId);
       if (toggledCar.isFavorite) {
-        await axios.post(`${process.env.NEXT_PUBLIC_SERVER_URI_AUTH}/favorites`, { carId } ,
-        );
+        // Add to favorites
+        await axios.post(`${process.env.NEXT_PUBLIC_SERVER_URI_AUTH}/favorites`, { carId }, config);
       } else {
-        await axios.delete(`${process.env.NEXT_PUBLIC_SERVER_URI_AUTH}/favorites/${carId}`);
+        // Remove from favorites
+        await axios.delete(`${process.env.NEXT_PUBLIC_SERVER_URI_AUTH}/favorites/${carId}`, config);
       }
-       // Filter out the car from the list immediately in the frontend
-       const filteredCars = updatedCars.filter((car) => car._id !== carId);
-       setCars(filteredCars);
+
+      // Filter out the car from the list immediately in the frontend if it's removed
+      const filteredCars = updatedCars.filter((car) => car._id !== carId || car.isFavorite);
+      setCars(filteredCars);
+
     } catch (error) {
       console.error("Error toggling favorite:", error);
     }
   };
-
-
 
   return (
     <div className="px-4 text-white flex flex-col py-[60px] bg-[#030508]">
