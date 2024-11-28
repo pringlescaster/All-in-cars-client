@@ -1,8 +1,8 @@
-"use client";
+"use client"
 
+// authStore.js
 import { create } from "zustand";
 import axios from "axios";
-import { useEffect } from "react";
 
 axios.defaults.withCredentials = true; // Enable cookies
 
@@ -14,17 +14,14 @@ export const useAuthStore = create((set) => ({
   isCheckingAuth: true,
   message: null,
 
-  // Logout
+
+   // Logout
   logout: async () => {
     set({ isLoading: true, error: null });
     try {
       await axios.post(`${process.env.NEXT_PUBLIC_SERVER_URI_AUTH}/logout`);
-      // Only run this on the client side
-      if (typeof window !== "undefined") {
-        localStorage.removeItem("token"); // Remove token
-        localStorage.removeItem("user"); // Remove user data
-      }
-
+      localStorage.removeItem("token"); // Remove token
+      localStorage.removeItem("user"); // Remove user data
       set({ user: null, isAuthenticated: false, isLoading: false });
     } catch (error) {
       set({
@@ -34,14 +31,10 @@ export const useAuthStore = create((set) => ({
     }
   },
 
-  // Sign up
-  signup: async (email, password, name) => {
+
+   // Sign up
+   signup: async (email, password, name) => {
     set({ isLoading: true, error: null });
-    // Only run this on the client side
-    if (typeof window !== "undefined") {
-      localStorage.removeItem("token"); // Remove token
-      localStorage.removeItem("user"); // Remove user data
-    }
     try {
       const response = await axios.post(
         `${process.env.NEXT_PUBLIC_SERVER_URI_AUTH}/signup`,
@@ -52,10 +45,7 @@ export const useAuthStore = create((set) => ({
         isAuthenticated: true,
         isLoading: false,
       });
-      // Only run this on the client side
-      if (typeof window !== "undefined") {
-        localStorage.setItem("user", JSON.stringify(response.data.user)); // Save user data to localStorage
-      }
+      localStorage.setItem("user", JSON.stringify(response.data.user)); // Save user data to localStorage
     } catch (error) {
       set({
         error: error.response?.data?.message || "Error signing up",
@@ -65,29 +55,29 @@ export const useAuthStore = create((set) => ({
     }
   },
 
-  verifyEmail: async (code) => {
-    set({ isLoading: true, error: null });
 
+  verifyEmail:  async (code) => {
+    set({ isLoading: true, error: null });
     try {
-      const response = await axios.post(
-        `${process.env.NEXT_PUBLIC_SERVER_URI_AUTH}/verify-email`, { code }
-      );
-      set({
-        user: response.data.user,
-        isAuthenticated: true,
-        isLoading: false,
-      });
-      return response.data;
+        const response = await axios.post(
+`${process.env.NEXT_PUBLIC_SERVER_URI_AUTH}/verify-email`, { code }
+        );
+        set({
+          user: response.data.user,
+          isAuthenticated: true,
+          isLoading: false,
+        });
+        return response.data
+        
     } catch (error) {
-      set({
-        error: error.response?.data?.message || "Error verifying email", 
-        isLoading: false
-      });
-      throw error;
+        set({ error: error.response?.data?.message || "Error verifying email", isLoading: false})
+    throw error;
     }
   },
 
-  // Check authentication (only on client side)
+
+
+  // Check authentication
   checkAuth: () => {
     if (typeof window !== "undefined") {
       const user = localStorage.getItem("user");
@@ -99,14 +89,11 @@ export const useAuthStore = create((set) => ({
     }
   },
 
-  // Login
-  login: async (email, password) => {
+
+  
+   // Login
+   login: async (email, password) => {
     set({ isLoading: true, error: null });
-    // Only run this on the client side
-    if (typeof window !== "undefined") {
-      localStorage.removeItem("token"); // Remove token
-      localStorage.removeItem("user"); // Remove user data
-    }
     try {
       const response = await axios.post(
         `${process.env.NEXT_PUBLIC_SERVER_URI_AUTH}/login`,
@@ -114,11 +101,9 @@ export const useAuthStore = create((set) => ({
       );
       const { user, token } = response.data;
 
-      // Save user and token to localStorage (only on the client side)
-      if (typeof window !== "undefined") {
-        localStorage.setItem("token", token); // Store token securely
-        localStorage.setItem("user", JSON.stringify(user)); // Store user data
-      }
+      // Save user and token
+      localStorage.setItem("token", token); // Store token securely
+      localStorage.setItem("user", JSON.stringify(user)); // Store user data
 
       set({
         user,
@@ -135,7 +120,10 @@ export const useAuthStore = create((set) => ({
     }
   },
 
-  // Forgot password
+
+
+
+// Forgot password
   forgotPassword: async (email) => {
     set({ isLoading: true, error: null, message: null });
     try {
@@ -150,21 +138,25 @@ export const useAuthStore = create((set) => ({
     }
   },
 
-  resetPassword: async (token, password) => {
-    set({
-      isLoading: true,
-      error: null,
-      message: null,
-    });
-    try {
-      const response = await axios.post(`${process.env.NEXT_PUBLIC_SERVER_URI_AUTH}/reset-password/${token}`, { password });
-      set({ message: response.data.message, isLoading: false });
-    } catch (error) {
-      set({
-        isLoading: false,
-        error: error.response?.data?.message || "Error resetting password",
-      });
-      throw error;
-    }
-  },
+
+resetPassword: async (token, password) => {
+set({
+  isLoading: true,
+  error: null,
+  message: null,
+});
+try {
+  const response = await axios.post(`${process.env.NEXT_PUBLIC_SERVER_URI_AUTH}/reset-password/${token}`, { password });
+  set({ message: response.data.message, isLoading: false });
+} catch (error) {
+  set({isLoading: false,
+    error: error.response.data.message || "Error resetting password",
+   });
+   throw error;
+}
+},
+
+
 }));
+
+

@@ -13,11 +13,15 @@ function Main() {
   const [cars, setCars] = useState([]);
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState(null);
-  
+  const [token, setToken] = useState(null);
+
   const { isAuthenticated } = useAuthStore();
 
-  // Get the token from localStorage
-  const token = localStorage.getItem("token");
+  // Access localStorage only on the client side
+  useEffect(() => {
+    const storedToken = localStorage.getItem("token");
+    setToken(storedToken);
+  }, []);
 
   // Set the token in request headers if it exists
   const config = token
@@ -29,6 +33,8 @@ function Main() {
     : {};
 
   useEffect(() => {
+    if (!token) return; // Skip fetching if no token is available
+
     const fetchFavorites = async () => {
       try {
         const response = await axios.get(
@@ -49,7 +55,7 @@ function Main() {
       }
     };
     fetchFavorites();
-  }, [config]); // Re-fetch if token changes
+  }, [token, config]); // Re-fetch if token changes
 
   const handleFavoriteToggle = async (carId) => {
     try {
