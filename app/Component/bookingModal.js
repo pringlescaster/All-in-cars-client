@@ -11,7 +11,11 @@ function BookingModal({carId, onClose, onBookingSuccess }) {
   const [successMessage, setSuccessMessage] = useState("");
   const [isLoading, setIsLoading] = useState(false);
 
-
+ // Only access localStorage on the client side
+ let token = null;
+ if (typeof window !== "undefined") {
+   token = localStorage.getItem("token"); // This is safe to access in the browser
+ }
   
   const handleDateChange = (e) => {
     setDate(e.target.value);
