@@ -81,26 +81,30 @@ function Main() {
     setActiveCategory(category); // Update the active category
     setFilterData(cars.filter((car) => car.categories === category)); // Filter cars by selected category
   };
-  
 
- // Filter cars based on search query
- useEffect(() => {
-  setFilterData(
-    cars.filter(
-      (car) =>
-        car.categories === activeCategory &&
-        car.name.toLowerCase().includes(searchQuery.toLowerCase())
-    )
-  );
-}, [searchQuery, activeCategory]);
+  // Filter cars based on search query
+  useEffect(() => {
+    setFilterData(
+      cars.filter(
+        (car) =>
+          car.categories === activeCategory &&
+          car.name.toLowerCase().includes(searchQuery.toLowerCase())
+      )
+    );
+  }, [searchQuery, activeCategory]);
+
+  // Handle car click to navigate to a details page
+  const handleCarClick = (carId) => {
+    // Navigate to a car details page or perform any action
+    router.push(`/car/${carId}`);
+  };
 
   if (loading) return <div className="py-6 text-center text-white">Loading...</div>;
-  
 
   return (
     <div className="">
-{/* Search Component */}
-<Search searchQuery={searchQuery} setSearchQuery={setSearchQuery} />
+      {/* Search Component */}
+      <Search searchQuery={searchQuery} setSearchQuery={setSearchQuery} />
 
       {/* Categories Section */}
       <div className="bg-[#050910] flex flex-wrap justify-start text-white lg:justify-around px-8 gap-8 py-8">
@@ -144,7 +148,10 @@ function Main() {
               key={car._id}
               className="flex bg-white/15 flex-col rounded-xl w-full  lg:w-[22%]"
             >
-              <div className=" text-white relative cursor-pointer" onClick={() => handleCarClick(car._id)} >
+              <div
+                className=" text-white relative cursor-pointer"
+                onClick={() => handleCarClick(car._id)} // Now clicking on car will trigger the function
+              >
                 <Image
                   src={car.image}
                   alt="car images"
@@ -158,7 +165,8 @@ function Main() {
                   className="absolute top-2 right-2 w-8 h-8 z-10 cursor-pointer"
                   onClick={(event) => {
                     event.stopPropagation();
-                    handleFavoriteToggle(car._id)}}
+                    handleFavoriteToggle(car._id); // Prevent propagation when toggling favorite
+                  }}
                 />
               </div>
 

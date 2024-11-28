@@ -55,9 +55,12 @@ function Main() {
       }
     };
     fetchFavorites();
-  }, [token, config]); // Re-fetch if token changes
+  }, [token, config]);
 
-  const handleFavoriteToggle = async (carId) => {
+  const handleFavoriteToggle = async (carId, event) => {
+    // Prevent click propagation to parent container
+    event.stopPropagation();
+
     try {
       const updatedCars = cars.map((car) => {
         if (car._id === carId) {
@@ -81,9 +84,10 @@ function Main() {
           config // Pass the token in headers
         );
       }
-       // Filter out the car from the list immediately in the frontend
-       const filteredCars = updatedCars.filter((car) => car._id !== carId);
-       setCars(filteredCars);
+
+      // Filter out the car from the list immediately in the frontend
+      const filteredCars = updatedCars.filter((car) => car._id !== carId);
+      setCars(filteredCars);
     } catch (error) {
       console.error("Error toggling favorite:", error);
     }
@@ -106,7 +110,7 @@ function Main() {
                 src={car.isFavorite ? selectedFavorite : favoriteIcon}
                 alt="favorite icon"
                 className="absolute top-2 right-2 w-8 h-8 z-10 cursor-pointer"
-                onClick={() => handleFavoriteToggle(car._id)} // Add onClick to toggle favorite
+                onClick={(event) => handleFavoriteToggle(car._id, event)} // Prevent click propagation here
               />
             </div>
             <div className="px-2 py-2 grid gap-y-[8px]">
