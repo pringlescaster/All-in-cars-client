@@ -1,3 +1,5 @@
+"use client"
+
 // authStore.js
 import { create } from "zustand";
 import axios from "axios";
