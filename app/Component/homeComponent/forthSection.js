@@ -14,17 +14,25 @@ function ForthSection() {
   const [newCars, setNewCars] = useState(null);
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState(null);
+  const [token, setToken] = useState(null);  // Store the token in state
 
-  const { isAuthenticated } = useAuthStore(); // Fix here: use useAuthStore to get isAuthenticated
+  const { isAuthenticated } = useAuthStore();
   const router = useRouter();
+  axios.defaults.withCredentials = true;
 
+  useEffect(() => {
+    // Ensure this code runs only on the client side
+    if (typeof window !== "undefined") {
+      const storedToken = localStorage.getItem('token');
+      setToken(storedToken);  // Set the token from localStorage
+    }
+  }, []);  // Empty dependency array ensures this runs only once when the component mounts
 
-  const token = localStorage.getItem('token');
-  const config = {
+  const config = token ? {
     headers: {
-      Authorization: `Bearer ${token}`, // Fix: Ensure correct Authorization format
+      Authorization: `Bearer ${token}`,  // Include token in header if it exists
     },
-  };
+  } : {};
 
   const handleCarClick = (carId) => {
     router.push(`/${carId}`);
@@ -35,7 +43,7 @@ function ForthSection() {
       try {
         const response = await axios.get(
           `${process.env.NEXT_PUBLIC_SERVER_URI_AUTH}/cars`, 
-          config // Fix: Pass the config with Authorization header
+          config  // Use config if token is available
         );
         const newArrivals = response.data.filter(car => car.categories === "New Arrivals");
         setNewCars(newArrivals);
@@ -46,18 +54,17 @@ function ForthSection() {
       }
     };
     fetchNewArrival();
-  }, []);
+  }, [token]);  // Re-fetch cars if token changes
 
-  // Toggle favorite status
   const handleFavoriteToggle = async (carId) => {
     if (!isAuthenticated) {
       router.push("/sign-in");
       return;
     }
 
-    const token = localStorage.getItem("user") ? JSON.parse(localStorage.getItem("user")).token : null;
-    if (token) {
-      axios.defaults.headers.common["Authorization"] = `Bearer ${token}`; // Fix: Ensure correct Authorization format
+    const userToken = localStorage.getItem("user") ? JSON.parse(localStorage.getItem("user")).token : null;
+    if (userToken) {
+      axios.defaults.headers.common["Authorization"] = `Bearer ${userToken}`;
     } else {
       delete axios.defaults.headers.common["Authorization"];
     }
@@ -73,17 +80,15 @@ function ForthSection() {
 
       const toggledCar = updatedCars.find((car) => car._id === carId);
       if (toggledCar.isFavorite) {
-        // Add to favorites
         await axios.post(
           `${process.env.NEXT_PUBLIC_SERVER_URI_AUTH}/favorites`,
           { carId },
-          { withCredentials: true, headers: config.headers } // Fix: Pass the config header
+          { withCredentials: true, headers: config.headers }
         );
       } else {
-        // Remove from favorites
         await axios.delete(
           `${process.env.NEXT_PUBLIC_SERVER_URI_AUTH}/favorites/${carId}`,
-          { withCredentials: true, headers: config.headers } // Fix: Pass the config header
+          { withCredentials: true, headers: config.headers }
         );
       }
     } catch (error) {
@@ -120,8 +125,8 @@ function ForthSection() {
                     alt="favorite icon"
                     className="absolute top-2 right-2 w-8 h-8 z-10 cursor-pointer"
                     onClick={(event) => {
-                      event.stopPropagation(); // Prevent triggering the parent click event
-                      handleFavoriteToggle(car._id); // Call the toggle function
+                      event.stopPropagation();
+                      handleFavoriteToggle(car._id);
                     }}
                   />
                 </div>
