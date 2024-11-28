@@ -27,6 +27,11 @@ function Main() {
   const { isAuthenticated } = useAuthStore();
   const router = useRouter();
 
+  
+  const handleCarClick = (carId) => {
+    router.push(`/${carId}`);
+  };
+
   // Fetch cars data
   useEffect(() => {
     const fetchCars = async () => {
@@ -93,11 +98,7 @@ function Main() {
     );
   }, [searchQuery, activeCategory]);
 
-  // Handle car click to navigate to a details page
-  const handleCarClick = (carId) => {
-    // Navigate to a car details page or perform any action
-    router.push(`/car/${carId}`);
-  };
+  
 
   if (loading) return <div className="py-6 text-center text-white">Loading...</div>;
 
