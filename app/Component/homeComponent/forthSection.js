@@ -13,14 +13,11 @@ function Main() {
   const [cars, setCars] = useState([]);
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState(null);
-
+  
   const { isAuthenticated } = useAuthStore();
 
-  // Only access localStorage on the client side
-  let token = null;
-  if (typeof window !== "undefined") {
-    token = localStorage.getItem("token"); // This is safe to access in the browser
-  }
+  // Get the token from localStorage
+  const token = localStorage.getItem("token");
 
   // Set the token in request headers if it exists
   const config = token
@@ -78,9 +75,9 @@ function Main() {
           config // Pass the token in headers
         );
       }
-      // Filter out the car from the list immediately in the frontend
-      const filteredCars = updatedCars.filter((car) => car._id !== carId);
-      setCars(filteredCars);
+       // Filter out the car from the list immediately in the frontend
+       const filteredCars = updatedCars.filter((car) => car._id !== carId);
+       setCars(filteredCars);
     } catch (error) {
       console.error("Error toggling favorite:", error);
     }
