@@ -17,7 +17,7 @@ function ForthSection() {
 
   const { isAuthenticated } = useAuthStore(); // Fix here: use useAuthStore to get isAuthenticated
   const router = useRouter();
-  axios.defaults.withCredentials = true;
+
 
   const token = localStorage.getItem('token');
   const config = {
