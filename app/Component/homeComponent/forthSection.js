@@ -9,7 +9,7 @@ import favorite from "../../../public/favorite.svg";
 import selectFavorite from "../../../public/selectedfavorite.svg";
 import { useRouter } from "next/navigation";
 import { useAuthStore } from "@/app/store/authStore";
-import SkeletonCard from "../skeletonCard";
+import SkeletonCard from "../Skeleton/skeletonCard";
 
 function ForthSection() {
   const [newCars, setNewCars] = useState(null);
@@ -48,9 +48,10 @@ function ForthSection() {
         );
         const newArrivals = response.data.filter(car => car.categories === "New Arrivals");
         setNewCars(newArrivals);
-        setLoading(false);
       } catch (error) {
         setError(error.message);
+      }
+      finally {
         setLoading(false);
       }
     };

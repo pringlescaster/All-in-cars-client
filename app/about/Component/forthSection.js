@@ -3,6 +3,7 @@
 import React, { useState, useEffect } from "react";
 import Image from "next/image";
 import axios from "axios";
+import TeamSkeleton from "@/app/Component/Skeleton/teamSkeleton";
 
 function ForthSection() {
   const [team, setTeam] = useState(null);
@@ -17,6 +18,8 @@ function ForthSection() {
         setLoading(false);
       } catch (error) {
         setError(error.message);
+      }
+      finally {
         setLoading(false);
       }
     };
@@ -37,7 +40,11 @@ function ForthSection() {
         </p>
       </div>
       <div className="flex py-8 md:pt-12 lg:pt-20 gap-y-[32px] md:gap-y-[40px] flex-wrap gap-x-[40px] justify-center items-center">
-        {team &&
+        {loading ? (Array.from({ length:6 }).map((_, index) => (
+          <TeamSkeleton key={index} />
+        )))
+        :
+        (team &&
           team.map((teamMember, index) => (
             <div className="grid gap-y-[12px]" key={index}>
               
@@ -53,7 +60,7 @@ function ForthSection() {
                 </div>
               
             </div>
-          ))}
+          )))}
       </div>
     </div>
   );

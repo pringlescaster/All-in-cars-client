@@ -15,6 +15,7 @@ import favoriteIcon from "../../../public/favorite.svg";
 import selectedFavorite from "../../../public/selectedfavorite.svg";
 import { useRouter } from "next/navigation";
 import { useAuthStore } from "@/app/store/authStore";
+import SkeletonCard from "@/app/Component/Skeleton/skeletonCard.js";
 
 function Main() {
   const [cars, setCars] = useState([]);
@@ -27,7 +28,6 @@ function Main() {
   const { isAuthenticated } = useAuthStore();
   const router = useRouter();
 
-  
   const handleCarClick = (carId) => {
     router.push(`/${carId}`);
   };
@@ -44,6 +44,7 @@ function Main() {
         setLoading(false);
       } catch (error) {
         setError(error.message);
+      } finally {
         setLoading(false);
       }
     };
@@ -98,9 +99,6 @@ function Main() {
     );
   }, [searchQuery, activeCategory]);
 
-  
-
-  if (loading) return <div className="py-6 text-center text-white">Loading...</div>;
 
   return (
     <div className="">
@@ -142,72 +140,76 @@ function Main() {
       </div>
 
       {/* Filtered Cars Display */}
-      <div className="flex px-8 flex-col gap-y-[22px] gap-x-[12px] justify-center md:grid md:grid-cols-3 md:justify-center lg:flex lg:flex-row md:gap-x-[16px] py-[24px]  md:py-[40px]">
-        {filterData.length > 0 ? (
-          filterData.map((car) => (
-            <div
-              key={car._id}
-              className="flex bg-white/15 flex-col rounded-xl w-full  lg:w-[22%]"
-            >
-              <div
-                className=" text-white relative cursor-pointer"
-                onClick={() => handleCarClick(car._id)} // Now clicking on car will trigger the function
-              >
-                <Image
-                  src={car.image}
-                  alt="car images"
-                  width="256"
-                  height="170"
-                  className="rounded-t-xl w-full object-cover"
-                />
-                <Image
-                  src={car.isFavorite ? selectedFavorite : favoriteIcon}
-                  alt="favorite icon"
-                  className="absolute top-2 right-2 w-8 h-8 z-10 cursor-pointer"
-                  onClick={(event) => {
-                    event.stopPropagation();
-                    handleFavoriteToggle(car._id); // Prevent propagation when toggling favorite
-                  }}
-                />
-              </div>
-
-              <div className="px-2 py-2 grid gap-y-[8px]">
-                <h1 className="text-white text-[14px] md:text-[16px] font-montserrat text-left font-medium">
-                  {car.name}
-                </h1>
-                <div className="flex flex-col md:flex-row justify-center md:justify-start md:items-center md:gap-x-[33px] gap-y-[12px]">
-                  <div className="grid gap-y-[4px]">
+      <div className="flex px-8 flex-col gap-y-[22px] gap-x-[12px] justify-center md:grid md:grid-cols-3 md:justify-center lg:flex lg:flex-row md:gap-x-[16px] py-[24px] md:py-[40px]">
+        {loading
+          ? Array.from({ length: 4 }).map((_, index) => (
+              <SkeletonCard key={index} />
+            ))
+          : filterData.length > 0 ? (
+              filterData.map((car) => (
+                <div
+                  key={car._id}
+                  className="flex bg-white/15 flex-col rounded-xl w-full lg:w-[22%]"
+                >
+                  <div
+                    className=" text-white relative cursor-pointer"
+                    onClick={() => handleCarClick(car._id)} // Now clicking on car will trigger the function
+                  >
                     <Image
-                      width={16}
-                      height={14}
-                      src={speedIcon}
-                      alt="speedIcon"
+                      src={car.image}
+                      alt="car images"
+                      width="256"
+                      height="170"
+                      className="rounded-t-xl w-full object-cover"
                     />
-                    <h1 className="font-openSans text-white text-[12px] font-normal">
-                      {car.speed}
-                    </h1>
+                    <Image
+                      src={car.isFavorite ? selectedFavorite : favoriteIcon}
+                      alt="favorite icon"
+                      className="absolute top-2 right-2 w-8 h-8 z-10 cursor-pointer"
+                      onClick={(event) => {
+                        event.stopPropagation();
+                        handleFavoriteToggle(car._id); // Prevent propagation when toggling favorite
+                      }}
+                    />
                   </div>
-                  <div className="md:grid hidden gap-y-[4px]">
-                    <Image
-                      width={16}
-                      height={14}
-                      src={engineIcon}
-                      alt="engineIcon"
-                    />
-                    <h1 className="font-openSans text-white text-[12px] font-normal">
-                      {car.engineType}
+
+                  <div className="px-2 py-2 grid gap-y-[8px]">
+                    <h1 className="text-white text-[14px] md:text-[16px] font-montserrat text-left font-medium">
+                      {car.name}
+                    </h1>
+                    <div className="flex flex-col md:flex-row justify-center md:justify-start md:items-center md:gap-x-[33px] gap-y-[12px]">
+                      <div className="grid gap-y-[4px]">
+                        <Image
+                          width={16}
+                          height={14}
+                          src={speedIcon}
+                          alt="speedIcon"
+                        />
+                        <h1 className="font-openSans text-white text-[12px] font-normal">
+                          {car.speed}
+                        </h1>
+                      </div>
+                      <div className="md:grid hidden gap-y-[4px]">
+                        <Image
+                          width={16}
+                          height={14}
+                          src={engineIcon}
+                          alt="engineIcon"
+                        />
+                        <h1 className="font-openSans text-white text-[12px] font-normal">
+                          {car.engineType}
+                        </h1>
+                      </div>
+                    </div>
+                    <h1 className="font-openSans font-medium text-[#FCA311] text-[16px]">
+                      {car.price}
                     </h1>
                   </div>
                 </div>
-                <h1 className="font-openSans font-medium text-[#FCA311] text-[16px]">
-                  {car.price}
-                </h1>
-              </div>
-            </div>
-          ))
-        ) : (
-          <div className="text-white text-center py-6 ">No cars available for this category.</div>
-        )}
+              ))
+            ) : (
+              <div className="text-white text-center py-6 ">No cars available for this category.</div>
+            )}
       </div>
     </div>
   );
