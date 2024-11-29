@@ -9,6 +9,7 @@ import favorite from "../../../public/favorite.svg";
 import selectFavorite from "../../../public/selectedfavorite.svg";
 import { useRouter } from "next/navigation";
 import { useAuthStore } from "@/app/store/authStore";
+import SkeletonCard from "../skeletonCard";
 
 function ForthSection() {
   const [newCars, setNewCars] = useState(null);
@@ -109,7 +110,12 @@ function ForthSection() {
         </div>
 
         <div className="flex px-8 flex-col gap-y-[22px] gap-x-[12px] justify-center md:grid md:grid-cols-3 md:justify-center lg:flex lg:flex-row md:gap-x-[16px] py-[24px]  md:py-[40px]">
-          {newCars &&
+          {loading ? (Array.from({ length:4}).map((_, index) => (
+            <SkeletonCard key={index} />
+          ))
+        )
+        
+          :(newCars &&
             newCars.map((car) => (
               <div key={car._id} className="flex bg-white/15 flex-col rounded-xl justify-start lg:w-[22%]">
                 <div className="relative cursor-pointer" onClick={() => handleCarClick(car._id)} >
@@ -145,7 +151,7 @@ function ForthSection() {
                   <h1 className="font-openSans font-medium text-[#FCA311] text-[16px]">{car.price}</h1>
                 </div>
               </div>
-            ))}
+            )))}
         </div>
       </div>
     </div>
