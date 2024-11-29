@@ -107,7 +107,7 @@ function Main() {
 
       {/* Categories Section */}
       <div className="bg-[#050910] flex flex-wrap justify-start text-white lg:justify-around px-8 gap-8 py-8">
-        {["Sport Cars", "SUVs", "Sedans", "Convertibles", "Electric"].map(
+        {["Sport Cars", "SUVs", "Sedans", "Convertibles", "Electric Cars"].map(
           (category) => (
             <div
               key={category}
@@ -129,8 +129,10 @@ function Main() {
                     ? Sedans
                     : category === "Convertibles"
                     ? Convertibles
-                    : Electric
-                }
+                    : category === "Electric Cars" ? Electric : null
+
+            
+              }
                 alt={category}
               />
               <span>{category}</span>
