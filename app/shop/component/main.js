@@ -23,6 +23,7 @@ function Main() {
   const [error, setError] = useState(null);
   const [filterData, setFilterData] = useState([]);
   const [searchQuery, setSearchQuery] = useState("");
+  const [token, setToken] = useState(null);  // Store the token in state
   const [activeCategory, setActiveCategory] = useState("Sport Cars");
 
   const { isAuthenticated } = useAuthStore();
@@ -32,11 +33,27 @@ function Main() {
     router.push(`/${carId}`);
   };
 
+  useEffect(() => {
+    // Ensure this code runs only on the client side
+    if (typeof window !== "undefined") {
+      const storedToken = localStorage.getItem('token');
+      setToken(storedToken);  // Set the token from localStorage
+    }
+  }, []);  // Empty dependency array ensures this runs only once when the component mounts
+
+  const config = token ? {
+    headers: {
+      Authorization: `Bearer ${token}`,  // Include token in header if it exists
+    },
+  } : {};
+
   // Fetch cars data
   useEffect(() => {
     const fetchCars = async () => {
       try {
-        const response = await axios.get(`${process.env.NEXT_PUBLIC_SERVER_URI_AUTH}/cars`);
+        const response = await axios.get(`${process.env.NEXT_PUBLIC_SERVER_URI_AUTH}/cars`,
+          config
+        );
         setCars(response.data);
         setFilterData(
           response.data.filter((car) => car.categories === "Sport Cars") // Default filter
@@ -49,7 +66,7 @@ function Main() {
       }
     };
     fetchCars();
-  }, []);
+  }, [token]);
 
   // Toggle favorite status
   const handleFavoriteToggle = async (carId) => {
@@ -57,6 +74,15 @@ function Main() {
       router.push("/sign-in");
       return;
     }
+
+    const userToken = localStorage.getItem("user") ? JSON.parse(localStorage.getItem("user")).token : null;
+    if (userToken) {
+      axios.defaults.headers.common["Authorization"] = `Bearer ${userToken}`;
+    } else {
+      delete axios.defaults.headers.common["Authorization"];
+    }
+
+
     try {
       const updatedCars = cars.map((car) => {
         if (car._id === carId) {
@@ -73,10 +99,17 @@ function Main() {
       const toggledCar = updatedCars.find((car) => car._id === carId);
       if (toggledCar.isFavorite) {
         // Add to favorites
-        await axios.post(`${process.env.NEXT_PUBLIC_SERVER_URI_AUTH}/favorites`, { carId });
+        await axios.post(
+          `${process.env.NEXT_PUBLIC_SERVER_URI_AUTH}/favorites`,
+          { carId },
+          { withCredentials: true, headers: config.headers }
+        );
       } else {
         // Remove from favorites
-        await axios.delete(`${process.env.NEXT_PUBLIC_SERVER_URI_AUTH}/favorites/${carId}`);
+        await axios.delete(
+          `${process.env.NEXT_PUBLIC_SERVER_URI_AUTH}/favorites/${carId}`,
+          { withCredentials: true, headers: config.headers }
+        );
       }
     } catch (error) {
       console.error("Error toggling favorite:", error);
